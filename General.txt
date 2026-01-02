@@ -1,0 +1,25 @@
+Your Roles and Responsibilities : 
+
+As a Senior Specialist DevOps Engineer, your focus will be developing and implementing software solutions. Besides working closely with your colleagues in Bangalore, you will also work closely with Nasdaq teams in other countries.
+
+Deploy and lead applications using Helm and Terraform. 
+Implement CI/CD pipelines using GitLab. 
+Supervise and optimize system performance using Prometheus, Grafana, and Loki. 
+We are responsible for developing and maintaining scripts for automation and configuration management. 
+Apply DevOps methodologies to streamline development and deployment processes. 
+We are an equal opportunity to Implement SRE methodologies to ensure system reliability and availability. 
+Collaborate with multi-functional teams to identify and resolve infrastructure issues. 
+We are continuously improving system performance, scalability, and security
+Participate in an on-call rotation, including off-hours and holidays! 
+We expect you to have:
+
+Minimum of 8 to 10 years of DevOps experience and must have worked with AWS or equivalent cloud infrastructure (Azure, Google, etc). AWS preferred. Cloud certification is a plus.
+Solid understanding of version control systems (Git, SVN).
+Experience with Infrastructure as Code(IaC) tools, such as Terraform, Helm, Customized.
+Knowledge in supervising and logging tools (Prometheus, ELK Stack).
+Sophisticated understanding of networking concepts and protocols.
+Ability to fix and resolve sophisticated technical issues.
+Strong interpersonal skills and problem-solving and critical thinking abilities. Adaptability and flexibility in multifaceted environments.
+Familiar with monitoring systems and tools, cloud-provided or otherwise self-hosted such as Prometheus, Loki, Grafana, etc.
+Education Qualification: Bachelor/Master or equivalent experience in computer science.
+

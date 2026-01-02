@@ -1,0 +1,21 @@
+
+
+Best Practices:
+Git -> Source of Truth 
+	Pipeline as Code
+	Paramaters inside Jenkinsfile - Not in the UI parameters
+Jenkins -> Hashicorp Vault -> Role ID / Secret ID
+Optimize Jenkins Configuration
+	Disable unused plugins
+	Avoid excessive use of sh or bat steps
+	Purge old builds
+	Clear workspace
+Seed Job
+	A Jenkins seed job is a special type of Jenkins job that uses the Job DSL plugin to programmatically create and manage other Jenkins jobs.
+Shared Libraries
+	Shared libraries in Jenkins Pipelines are reusable pieces of code that can be organized into functions and classes. 
+	Manage Jenkins » System » Global Trusted Pipeline Libraries -> Select "Shared Library" Git repo and branch
+	@Library("shared-lib@master")
+Parallel execution ( 'parallel' inside 'stage' block)
+Regularly update Plugins
+Deployment Approach (Helm, GitOps ArgoCD)

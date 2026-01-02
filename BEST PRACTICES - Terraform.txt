@@ -1,0 +1,216 @@
+
+Best Practices:
+Modules 
+	* Don't Repeat Yourself (DRY) Principle
+	* Open-Closed Principle - Modules should be open for extension, closed for modifications (Variablize)
+	* Single Responsibility Principle (SRP)
+		One module should do one thing well.
+		
+	* Dependency Inversion Principle (DIP) in Modules
+		High-level modules should not depend on low-level modules directly.
+		Bad design: One module directly references another module's resources
+		Good DIP design: Consume values passed via variables & expose outputs, not resources
+		
+	* Module Cache Issue:
+		Always specify the module version. In case if version specified in the root module, terraform will use the previously cached version of module.
+		terraform init -upgrade ==> Pulls latest version but be mindful: upgrading modules can introduce breaking changes.
+Anti-Patterns
+		Editing Terraform State manually
+		Using 'count' with resources that change order (use 'for_each' instead)
+		Using Terraform as configuration manager (Provisioners should be the last resort)
+terraform apply -refresh-only command (deprecated terraform refresh) - Key Issues and Cautions
+	Risk of Inadvertent State Corruption (Misconfigured Credentials)
+		If you have misconfigured provider credentials (e.g., pointing to the wrong cloud account), Terraform might be unable to find the expected resources in that account. It could then mistakenly assume the resources have been deleted and remove them from its state file.
+	Does Not Modify Configuration Files
+	Skip Confirmation in Interactive Mode if "apply -refresh-only -auto-approve"
+	
+Migrate state file from one backend to another 	(terraform init -migrate-state vs -reconfigure)
+	
+partial backend configuration
+	keep the backend "s3" block in code with only non‑sensitive and inject sensitive values at init time via -backend-config (inline or from an external file(Eg: dev.s3.tfbackend) that you don’t commit)
+	terraform init -backend-config=dev.s3.tfbackend
+
+Move a security group into a networking module	
+	One team is using a resource that needs to move to common module.
+	Use 'moved' block
+	
+Deprecated:
+	Dynamodb table state locking with S3 backend is deprecated (after v1.11). "use_lockfile" instead of "dynamodb_table"
+	
+Changes:
+		aws vs awscc provider
+		"ephemeral" block and "Write‑only" arguments
+			An "ephemeral" block declares a temporary, runtime‑only resource whose values never get written to the state file or saved plans
+				Ephemeral resources are provider‑specific.
+			"Write‑only" arguments (like password_wo) are designed to accept ephemeral values; Terraform does not record them in state or plans.
+	
+--------------------------------------------------------------------------------------------------------------------------------
+
+Notes:
+
+Config driven workflow:
+import {} — Bring existing AWS resources under Terraform management
+
+
+Kubernetes as Terraform Backend 
+	The Kubernetes backend stores the Terraform state as a Kubernetes Secret object
+
+Terraform get vs init
+	terraform get - If any module is missing in the local cache (.terraform/modules/), it updates it.
+					Unlike terraform init, it doesn’t reconfigure backends or providers — just modules.
+					
+terraform apply -replace="aws_instance.database" => Destroys and recreates a single resource without modifying the Terraform code.
+
+"terraform init -migrate-state" => command to migrate the state file from local to the new remote backend.
+VS
+"terraform init -reconfigure"   => ignore existing backend settings and apply the new configuration without migrating state.
+
+When you run terraform console, Terraform locks the state (just like during plan or apply).
+
+The "terraform apply -refresh=false" command in Terraform is used to prevent Terraform from refreshing the state of the infrastructure resources before applying changes. This can be useful in situations where you want to apply changes quickly without waiting for Terraform to check the current state of the infrastructure, especially if you're confident that the state is already up to date. 
+
+Legacy: connect to HCP Terraform via backend {} => terraform { backend "remote" {} }
+New:    connect to HCP Terraform via cloud {}   => terraform { cloud {} }
+
+The merge() function takes two or more maps and combines them into a single map.
+merge(var.common_tags, local.resource_tags)
+
+cross-workspace data sharing in HCP Terraform
+	To retrieve output values from another HCP Terraform workspace, you must add a tfe_outputs data source to your configuration. This data source specifically queries outputs from other workspaces within HCP Terraform. You would add something like:
+
+		data "tfe_outputs" "webserver" { 
+		  organization = "bk-organization"
+		  workspace    = "prod-webserver" 
+		} 	
+	and then reference it with data.tfe_outputs.webserver.values.public_ip.
+
+"Run triggers" in HCP Terraform create automatic dependencies between workspaces. When you configure a run trigger, HCP Terraform will automatically queue a plan in the target workspace whenever a successful apply completes in the source workspace. 
+
+"Explorer" feature in HCP Terraform allows users to search across all workspaces in the organization. It provides a centralized view of all workspaces and their resources, making it easy to identify which workspaces manage specific resources
+
+-----------------------------------------------------------------------------------------------------------------------------------
+
+Additional References:
+
+01] LifeCycle:
+
+lifecycle {
+  create_before_destroy = true
+  prevent_destroy       = true
+  ignore_changes        = [some_attr, other_attr]
+  replace_triggered_by  = [var.some_change, resource.other.attr]
+
+  precondition {
+    condition     = <boolean>
+    error_message = "Why this must be true before create/update"
+  }
+
+  postcondition {
+    condition     = <boolean using self.*>
+    error_message = "Why this must be true after create/update"
+  }
+
+  action_trigger {
+    events    = ["before_create", "after_create", "before_update", "after_update"]
+    condition = <boolean>
+    actions   = [action.foo.bar]   # conceptual usage; validate provider support
+  }
+}
+
+
+02]
+
+Config driven workflow:
+	1) removed {} — Detach a resource from Terraform (with or without deleting it)
+	
+		removed {
+		  from = aws_s3_bucket.logs
+		  lifecycle { destroy = false }  # detach but do NOT delete the bucket
+		}
+		
+	2) import {} — Bring existing AWS resources under Terraform management
+
+		import {
+		  to = aws_s3_bucket.logs
+		  id = "my-existing-logs-bucket"       # S3 import ID is the bucket name
+		}
+
+		terraform init
+		terraform plan -generate-config-out=generated.tf   # review auto-generated config if needed
+		terraform apply
+		
+	3) moved {} — Safely rename or relocate resources (addresses) without re‑creation
+		resource "aws_instance" "old_name" { ... }
+		You refactor to:
+		resource "aws_instance" "new_name" { ... }
+
+		moved {
+		  from = aws_instance.old_name
+		  to   = aws_instance.new_name
+		}
+
+
+03] terraform-docs	-> https://terraform-docs.io/	
+	Generate Terraform modules documentation in various formats
+	terraform-docs markdown --output-file README.md -output-mode inject .
+	
+04] HCP Terraform Global Variables
+	Variable sets allow you to reuse variables across multiple workspaces.
+	Scopes:
+		Organization-level: Available to all projects and workspaces.
+			-> Project-level: Available to all workspaces in that project.
+				-> Workspace-level: Specific to one workspace.
+				
+05] "Run tasks" in HCP Terraform allows you to integrate external tools and services into your Terraform workflow. They execute between the plan and apply phases, enabling you to call external APIs for tasks like security scanning, cost estimation
+	
+06] Environment Variables
+Windows:
+	$env:TF_LOG="DEBUG"
+	$env:AWS_PROFILE="MyProfile"
+	
+07] "ephemeral" block and "Write‑only" arguments
+		 ephemeral values to prevent sensitive data (passwords, tokens, keys) from being written to any Terraform artifact (state or plan). 
+	Make a variable ephemeral:
+		variable "api_key" {
+			type = string
+			ephemeral = true
+		}
+	
+	Ephemeral Resources:
+		# Read the KV v2 secret ephemerally — not written to state/plan
+		ephemeral "vault_kv_secret_v2" "db_secret" {
+		  mount = "kvv2"
+		  name  = "app/db" # path relative to the mount (no 'data/' prefix)
+		}
+
+		resource "aws_db_instance" "postgres" {
+		  .......
+
+		  # Write-only: consumed during apply, not persisted in state/plan
+		  password_wo  = tostring(ephemeral.vault_kv_secret_v2.db_secret.data.password)
+		  password_wo_version = 1
+		}
+
+***
+
+Terraform best practices encompass various aspects, from code organization and modularity to operational procedures and security. Adhering to these practices promotes maintainability, scalability, and collaboration within infrastructure-as-code environments.
+1. Code Organization and Modularity:
+Modularize Code: Break down infrastructure into reusable, self-contained modules. This improves readability, reduces redundancy, and promotes consistency.
+Logical Structure: Organize modules and resources in a clear, hierarchical structure, separating concerns by environment (e.g., dev, prod) or component (e.g., networking, compute).
+Naming Conventions: Establish consistent naming conventions for resources, variables, and outputs using underscores and lowercase letters.
+2. State Management:
+Remote State: Store Terraform state in a remote backend (e.g., S3, Azure Blob Storage, HashiCorp Cloud) to enable collaboration and prevent state corruption.
+State Locking: Utilize state locking mechanisms provided by remote backends to prevent concurrent modifications and ensure state integrity.
+Minimize Root Module Resources: Limit the number of resources within a single root module to improve execution speed and reduce state file size.
+3. Operational Procedures:
+Plan First: Always generate and review a terraform plan before applying changes to understand the impact of your configurations.
+CI/CD Integration: Automate Terraform deployments using CI/CD pipelines to ensure consistent and reliable infrastructure changes.
+Validation and Testing: Implement automated validation, syntax checks, and potentially integration tests within your CI/CD pipeline.
+4. Security and Collaboration:
+Separate Privileges: Design workspaces and modules to align with team responsibilities and privilege boundaries, minimizing the scope of access for individual users.
+Variable Validation: Validate input variables to prevent misconfigurations and ensure secure and compliant infrastructure deployments.
+Leverage Existing Resources: Utilize data sources to reference existing infrastructure or outputs from other workspaces, promoting reusability and reducing duplication.
+5. Style and Readability:
+Consistent Formatting: Use terraform fmt to automatically format your code according to a consistent style guide, improving readability.
+Clear Documentation: Document modules and configurations, explaining inputs, outputs, and their purpose.
+Limit Complexity: Avoid overly complex expressions and break down intricate logic into multiple local values for better understanding.

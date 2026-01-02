@@ -1,0 +1,96 @@
+
+Service Mesh
+
+Configurable Infrastructure Layer for Microservices applications. It provides microservices governance by adding necessary visibility and security controls. 
+
+When you have thousands of Discrete services the service mesh helps discover, authorize, track the different service instances. 
+
+One way to implement s service mesh is with sidecars. Sidecars handles intercommmunications with features such as:
+* Service Discovery
+* Load balancing
+* Encryption
+* Authentication and Authorization
+* Monitoring 
+* ....Anything that can be abstracted away from the individual services. This way developer can focus on coding features that add business value rather than infrastrutcure related requirements. 
+
+Istio is a service mesh designed to make communication among microservices reliable, transparent, and secure. Istio intercepts the external and internal traffic targeting the services deployed in container platforms such as Kubernetes.
+
+Though Istio is capable of many things including secure service-to-service communication, automated logging of metrics, enforcing a policy for access controls, rate limits, and quotas, we will focus exclusively on the traffic management features.
+
+Istio lets DevOps teams create rules to intelligently route the traffic to internal services. It is extremely simple to configure service-level properties like circuit breakers, timeouts, and retries, to set up a variety of deployment patterns including blue/green deployments and canary rollouts.
+
+
+
+Network Traffic Management
+	Loadbalancing (Challenge is proliferation of Load balancers)
+	Routing (Header based, Path based, Weight based, Mirror Live Traffic)
+	Deployment Patterns (Dark Launch / Blue Green / Canary / A-B Testing)
+	
+Network / Service Resiliency
+	Rate Limiting
+	Circuit Breaker (To prevent our service going down when they are under high load / cascading failures using Outlier Detection, Self healing, Istio vs Netflix Hystrix Library)
+	Fault Tolerance (Retry Policy, 	Timeout)
+	Fault Injection (OR) Chaos testing (delay, abort)
+	
+Security
+	Authentication
+	Authorization
+    mTLS
+	Policy
+
+Observability
+	Metrics
+	Tracing
+	Logging
+
+Service Discovery
+	Discovery
+	Health Check
+	
+*****************************************************************************************
+Blue / Green Deployment
+	It’s basically a technique for releasing your application in a predictable manner with an goal of reducing any downtime associated with a release.
+
+A/B Testing
+	It's a way of testing features in your application for various reasons like usability, popularity, noticeability, etc
+	
+Canary Deployment
+	Canary release is a technique to reduce the risk of introducing a new software version in production by slowly rolling out the change to a small subset of users before rolling it out to the entire infrastructure and making it available to everybody.
+
+*****************************************************************************************
+
+Microservices Capabilities:
+	API
+	Discovery		-	Kubernetes, Istio
+	Invocation		-	Kubernetes
+	Elasticity		-	Kubernetes
+	Monitoring		-	OpenShift, Istio
+	Logging			-	OpenShift
+	Pipeline		-	OpenShift
+	Resiliency		-	Istio
+	Tracing			-	Istio
+	Authentication	-	Istio
+	
+
+	
+Network & Infrastructure can be infiltrated by malicious or misconfigured code 
+
+
+EKSCtl --> 
+Can't use Userdata
+Can't Taint Worker nodes
+Imperative commands (Create ServiceAccount)
+
+
+
+********************************
+
+ArgoCD
+
+Git as the source of truth
+Keep your cluster in sync with Git
+Easy rollback
+Security - Grant access only to ArgoCD
+Disaster recovery solution
+Cluster / Application state visibility
+
