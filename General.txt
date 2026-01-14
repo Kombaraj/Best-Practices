@@ -1,3 +1,18 @@
+Container Orchestration: Kubernetes
+CI: Jenkins
+CD: ArgoCD (GitOps)
+IaC: Terraform
+Cloud: AWS
+
+
+
+
+
+
+
+
+
+
 Your Roles and Responsibilities : 
 
 As a Senior Specialist DevOps Engineer, your focus will be developing and implementing software solutions. Besides working closely with your colleagues in Bangalore, you will also work closely with Nasdaq teams in other countries.

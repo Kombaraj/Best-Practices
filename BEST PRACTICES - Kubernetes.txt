@@ -1,0 +1,139 @@
+
+
+Kubernetes Admission Controller?
+    A Kubernetes Admission Controller is a gatekeeper that intercepts API requests after authentication & authorization but before the object is persisted in etcd.
+
+    Types:
+        Mutating Admission Controllers
+            Examples
+                Injecting sidecars (Istio)
+                Adding default labels/annotations
+                Setting default resource limits
+                Injecting tolerations or node selectors
+        Validating Admission Controllers
+            Run after mutation, Cannot modify objects, Enforce policies
+            Examples
+                Enforce image from trusted registry
+                Require resource limits
+                Block privileged containers
+                Enforce naming conventions
+
+Custom Admission Controller
+    Create custom mutating controller python flask app to patch JSON payload, deploy it as pod
+    Create kind: MutatingWebhookConfiguration, webhook it to python service, add rules: Create-> Deployment resource
+
+
+Open Policy Agent (OPA)
+    General Purpose policy engine - using Rego language
+    OPA Gatekeeper (comes with Custom Resource Definition CRD) -> Open Policy Agent
+    ConstraintTemplate - CRD
+        kind: ConstraintTemplate
+            metadata:
+                name: k8srequiredLabels
+    Constraint - CRD
+        kind: k8srequiredLabels
+            metadata:
+                name: pod-must-have-gk  (eg: deployment-must-have-gk ....)
+    Install OPA Gatekeeper via GateKeeper YAML
+        Installs Gatekeeper controller / service
+        OPA Gatekeeper uses "ValidatingWebhookConfiguration" webhook
+    Use cases:
+        Enforce No Privileged containers
+        Restrict Root User Containers
+        Enforce Approved Container Registry
+        Enforce Resource Requests & Limits
+        Enforce Required Labels/Annotations
+
+
+EKS
+    Pre-Requisites Resources:
+        VPC, Subnets (Public/Private), Route Tables, NAT Gateway + Elastic IP, Internet Gateway
+    EKS Resources:
+        EKS Cluster
+            EKS Cluster IAM Role (Policy: AmazonEKSClusterPolicy, AmazonEKSVPCResourceController)
+            EKS Cluster Security Group
+            EKS Cluster Network Interfaces
+            EKS Cluster (resource: aws_eks_cluster)
+        EKS Node Group
+            EKS Node Group IAM Role (Policy: AmazonEKSWorkerNodePolicy, AmazonEKS_CNI_Policy, AmazonEC2ContainerRegistryReadOnly)
+            EKS Node Group Security Group
+            EKS Node Group Network Interfaces
+            EKS Worker Nodes EC2 Instances (resource: aws_eks_node_group)
+    # Create AWS EKS Cluster
+        resource "aws_eks_cluster" "eks_cluster" {
+        name     = "${local.name}-${var.cluster_name}"
+        role_arn = aws_iam_role.eks_master_role.arn
+        version = var.cluster_version
+
+        vpc_config {
+            subnet_ids = module.vpc.public_subnets
+            endpoint_private_access = var.cluster_endpoint_private_access
+            endpoint_public_access  = var.cluster_endpoint_public_access
+            public_access_cidrs     = var.cluster_endpoint_public_access_cidrs    
+        }
+
+        kubernetes_network_config {
+            service_ipv4_cidr = var.cluster_service_ipv4_cidr
+        }
+        
+        # Enable EKS Cluster Control Plane Logging
+        enabled_cluster_log_types = ["api", "audit", "authenticator", "controllerManager", "scheduler"]
+
+        # Ensure that IAM Role permissions are created before and deleted after EKS Cluster handling.
+        # Otherwise, EKS will not be able to properly delete EKS managed EC2 infrastructure such as Security Groups.
+        depends_on = [
+            aws_iam_role_policy_attachment.eks-AmazonEKSClusterPolicy,
+            aws_iam_role_policy_attachment.eks-AmazonEKSVPCResourceController,
+        ]
+        }
+    
+    # Create AWS EKS Node Group - Public
+        resource "aws_eks_node_group" "eks_ng_public" {
+        cluster_name    = aws_eks_cluster.eks_cluster.name
+
+        node_group_name = "${local.name}-eks-ng-public"
+        node_role_arn   = aws_iam_role.eks_nodegroup_role.arn
+        subnet_ids      = module.vpc.public_subnets
+        #version = var.cluster_version #(Optional: Defaults to EKS Cluster Kubernetes version)    
+        
+        ami_type = "AL2_x86_64"  
+        capacity_type = "ON_DEMAND"
+        disk_size = 20
+        instance_types = ["t3.medium"]
+        
+        
+        remote_access {
+            ec2_ssh_key = "eks-terraform-key"
+        }
+
+        scaling_config {
+            desired_size = 1
+            min_size     = 1    
+            max_size     = 2
+        }
+
+        # Desired max percentage of unavailable worker nodes during node group update.
+        update_config {
+            max_unavailable = 1    
+            #max_unavailable_percentage = 50    # ANY ONE TO USE
+        }
+
+        # Ensure that IAM Role permissions are created before and deleted after EKS Node Group handling.
+        # Otherwise, EKS will not be able to properly delete EC2 Instances and Elastic Network Interfaces.
+        depends_on = [
+            aws_iam_role_policy_attachment.eks-AmazonEKSWorkerNodePolicy,
+            aws_iam_role_policy_attachment.eks-AmazonEKS_CNI_Policy,
+            aws_iam_role_policy_attachment.eks-AmazonEC2ContainerRegistryReadOnly,
+        ] 
+
+        tags = {
+            Name = "Public-Node-Group"
+        }
+        }
+
+    # Access the cluster
+        aws eks --region us-east-1 update-kubeconfig --name hr-stag-eksdemo1
+
+    
+
+    

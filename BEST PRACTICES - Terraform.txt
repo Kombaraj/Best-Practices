@@ -43,10 +43,72 @@ Changes:
 			An "ephemeral" block declares a temporary, runtime‑only resource whose values never get written to the state file or saved plans
 				Ephemeral resources are provider‑specific.
 			"Write‑only" arguments (like password_wo) are designed to accept ephemeral values; Terraform does not record them in state or plans.
-	
+
+Override files ???
+Template Files ???
+Parallelism ???	
 --------------------------------------------------------------------------------------------------------------------------------
 
 Notes:
+
+A) Terraform Workflow
+	Init    -> Downloads providers
+			   .terraform/providers -> Folder
+			   .terraform.lock.hcl  -> File
+	Plan    -> Shows what changes will be made
+	Apply   -> Makes the changes
+			   terraform.tfstate    -> File
+	Destroy -> terraform.tfstate.backup -> File
+
+B) Language Basics
+	Arguments - Configure a particular resource
+		aws_instance
+			.ami (Required)
+			.availability_zone (Optional)
+	Meta-Arguments - Modify the behavior of resource, not resource specific
+		.count
+		.for_each
+		.depends_on
+	Attributes - Output values of a resource
+		.arn
+		.public_ip
+	Interpolation - the process of embedding dynamic expression results into a string.
+		Referencing one resource from another
+		resource 1:
+			var1 = "${aws_instance.resource2.id}" // Older Way
+			var1 = aws_instance.resource2.id      // New Way
+
+C) Terraform Top-Level Blocks
+	Fundamental Blocks
+		terraform Block -> Required terraform version, Required providers, Configure backend
+		provider Block  -> Provider name, region, Belongs to Root module
+		resource Block  -> resource (provisioner - optional)
+	Variable Blocks
+		variable  -> Input variables, type, default, validation
+		output    -> Output values
+	Referencing Blocks
+		data Block
+		module Block
+
+D) terraform Block
+		terraform {
+			required_version = ">= 1.0.0" # Requires Terraform 1.0.0 or newer
+
+			required_providers {
+				aws = {
+				source  = "hashicorp/aws"
+				version = "~> 5.0" # Requires AWS provider version 5.x
+				}
+			}
+		}
+
+E) provider Block
+	Official
+	Partner
+	Community
+	Single provider block, Multiple provider block with 'alias'
+
+
 
 Config driven workflow:
 import {} — Bring existing AWS resources under Terraform management
@@ -87,6 +149,15 @@ cross-workspace data sharing in HCP Terraform
 "Run triggers" in HCP Terraform create automatic dependencies between workspaces. When you configure a run trigger, HCP Terraform will automatically queue a plan in the target workspace whenever a successful apply completes in the source workspace. 
 
 "Explorer" feature in HCP Terraform allows users to search across all workspaces in the organization. It provides a centralized view of all workspaces and their resources, making it easy to identify which workspaces manage specific resources
+
+Fetch output/values 
+	from Module:
+		Define "Output" value in the module (child module)
+		Access from root module: xyz = module.<child module>.<output name>
+	from Existing state file:
+		data "terraform_remote_state" "network" {}
+		xyz = data.terraform_remote_state.network.outputs.public_subnet_id
+
 
 -----------------------------------------------------------------------------------------------------------------------------------
 
@@ -192,7 +263,19 @@ Windows:
 		}
 
 ***
+AWS Control Tower Account Factory for Terraform (AFT) 
+is an AWS-maintained Terraform module that automates the provisioning and customization of new and existing AWS accounts within an AWS Control Tower environment. 
 
+Key Repositories
+The AFT workflow is driven by changes in four main version control repositories (CodeCommit, GitHub, etc.): 
+aft-account-request: Contains Terraform files where you define the parameters for new accounts (e.g., account email, name, organizational unit) you want to provision. Pushing changes here triggers the account vending machine.
+aft-global-customizations: Used for configurations that apply to all accounts managed by AFT (e.g., organization-wide security logging).
+aft-account-customizations: Manages configurations specific to a subset of accounts, such as different policies for "production" vs. "sandbox" environments.
+aft-account-provisioning-customizations: Contains advanced customizations using AWS Step Functions that run during the account provisioning process, before other customizations. 
+
+
+
+***
 Terraform best practices encompass various aspects, from code organization and modularity to operational procedures and security. Adhering to these practices promotes maintainability, scalability, and collaboration within infrastructure-as-code environments.
 1. Code Organization and Modularity:
 Modularize Code: Break down infrastructure into reusable, self-contained modules. This improves readability, reduces redundancy, and promotes consistency.
