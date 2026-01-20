@@ -1,0 +1,85 @@
+
+
+Helm Charts
+    Classic HTTP and OCI (Open Container Initiative)
+    Classic HTTP
+        Helm downloads the index.yaml to discover available charts and versions.
+        Key Limitation: The index.yaml file grows larger as you add more charts
+            # Add a classic repo
+            helm repo add bitnami https://charts.bitnami.com
+            # Update your local index
+            helm repo update
+            # Install a chart
+            helm install my-release bitnami/nginx
+    OCI
+        No central index.yaml is needed. Helm interacts directly with the registry's API using the oci:// protocol.
+        # Login to an OCI registry
+        aws ecr get-login-password --region ap-south-1 | helm registry login --username AWS --password-stdin 123456789012.dkr.ecr.ap-south-1.amazonaws.com
+        helm install my-app oci://123456789.dkr.ecr.us-east-1.amazonaws.com/helm-charts/myapp --version 1.0.0
+
+    Helm Chart Folder Structure
+        mychart/
+        ├── Chart.yaml
+        ├── values.yaml
+        ├── .helmignore
+        └── templates/
+            ├── NOTES.txt
+            ├── _helpers.tpl
+            ├── deployment.yaml
+            ├── service.yaml
+            ├── hpa.yaml
+            ├── ingress.yaml
+            ├── serviceaccount.yaml
+            └── tests/
+                └── test-connection.yaml
+Helm Dependency Charts or Child Charts
+    Chart.yaml
+        dependencies:
+        - name: redis
+          version: 14.4.0
+          repository: https://charts.bitnami.com/bitnami
+    Commands:
+        helm dependency update <chart>
+        helm dependency build <chart>
+        helm dependency list <chart>
+
+Helm Hooks
+    pre-install, post-install, pre-delete, post-delete, pre-upgrade, post-upgrade, etc.
+    Example:
+        # templates/db-migration-job.yaml
+        apiVersion: batch/v1
+        kind: Job
+        metadata:
+        name: "{{ .Release.Name }}-db-migrate"
+        annotations:
+            "helm.sh/hook": "pre-upgrade,pre-install"
+            "helm.sh/hook-weight": "-5"
+            "helm.sh/hook-delete-policy": "before-hook-creation"
+        spec:
+        template:
+            metadata:
+            name: "{{ .Release.Name }}-db-migrate"
+            spec:
+            restartPolicy: Never
+            containers:
+            - name: db-migrate
+                image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+                command:
+                - /bin/sh
+                - -c
+                - |
+                echo "Running database migrations..."
+                python manage.py migrate --noinput
+                env:
+                - name: DATABASE_URL
+                value: "{{ .Values.database.url }}"
+
+Troubleshooting
+    helm lint <chart>
+    helm template <chart>
+    helm get all <release>
+    helm status <release> **
+    helm history <release> **
+    helm uninstall <release>
+
+

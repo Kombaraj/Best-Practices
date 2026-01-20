@@ -10,10 +10,12 @@ Modules
 		High-level modules should not depend on low-level modules directly.
 		Bad design: One module directly references another module's resources
 		Good DIP design: Consume values passed via variables & expose outputs, not resources
+		Example: VPC module with Subnet -> EKS Module injects EC2 tags for EKS
 		
 	* Module Cache Issue:
 		Always specify the module version. In case if version specified in the root module, terraform will use the previously cached version of module.
 		terraform init -upgrade ==> Pulls latest version but be mindful: upgrading modules can introduce breaking changes.
+
 Anti-Patterns
 		Editing Terraform State manually
 		Using 'count' with resources that change order (use 'for_each' instead)
@@ -43,6 +45,8 @@ Changes:
 			An "ephemeral" block declares a temporary, runtime‑only resource whose values never get written to the state file or saved plans
 				Ephemeral resources are provider‑specific.
 			"Write‑only" arguments (like password_wo) are designed to accept ephemeral values; Terraform does not record them in state or plans.
+
+VPC Statefile <- EKS Statefile <- Karpenter Statefile ===> using "terraform_remote_state"
 
 Override files ???
 Template Files ???

@@ -19,23 +19,101 @@ Though Istio is capable of many things including secure service-to-service commu
 
 Istio lets DevOps teams create rules to intelligently route the traffic to internal services. It is extremely simple to configure service-level properties like circuit breakers, timeouts, and retries, to set up a variety of deployment patterns including blue/green deployments and canary rollouts.
 
+Istio High-Level Flow
+	istiod watches Kubernetes APIs and pushes changes to Envoy sidecars in real time
+	Kubernetes API Server (watch events) -> istiod (config push) -> Envoy Sidecars (Pods)
 
+Istio CRDs
+	Gateway
+	VirtualService
+	DestinationRule
+	PeerAuthentication
+	AuthorizationPolicy
+
+istio-ingressgateway 
+	Deployment
+	Pod (Envoy)
+	Service (LoadBalancer)
+	Option 1:
+		Gateway CRD -> selector: -> istio: ingressgateway # binds to default Istio ingress
+		VirtualService CRD -> Gateway CRD
+	Option 2:
+		patch svc istio-ingressgateway -> "type":"ClusterIP"
+		Create Kubernetes Ingress Object with 
+			metadata: -> annotations:  kubernetes.io/ingress.class: alb /  alb.ingress.kubernetes.io/scheme: internet-facing
+			backend: ->  service: ->  name: istio-ingressgateway
+			Browser ->ALB -> Istio Ingress Gateway (Envoy) -> Gateway object (host/port) -> VirtualService (routing rules) -> Backend Pods (mTLS)
 
 Network Traffic Management
 	Loadbalancing (Challenge is proliferation of Load balancers)
-	Routing (Header based, Path based, Weight based, Mirror Live Traffic)
-	Deployment Patterns (Dark Launch / Blue Green / Canary / A-B Testing)
+		DestinationRule -> trafficPolicy: -> loadBalancer: -> simple: RANDOM/ROUND_ROBIN/LEAST_CONN
+	Routing (Weight based, Header based, Path based, Mirror Live Traffic)
+		Canary(Weight based): 
+			Label the pods (app: reviews, version: v1,v2...)
+			VirtualService -> route: 
+								weight: 10% 
+								destination: 
+									host: reviews
+									subset: v1
+			DestinationRule -> (host: reviews) 
+								subsets: labels -> version: v1
+		Header based:
+			HTTP header (enduser: tester) -> VirtualService -> http: 
+												- match: 
+													- headers: 
+														end-user: 
+														exact: tester
+													route:
+													- destination:
+														host: reviews
+														subset: v1
+		Mirror Live Traffic:
+			VirtualService -> 
+			  http: # L7 load balancing by http path and host, just like K8s ingress resource
+					- mirror: # <---- mirror traffic going to v3 to v1 as well, 100% of it
+						host: reviews
+						subset: v1
+					  mirror_percent: 100.0 # use double. https://istio.io/latest/docs/reference/config/networking/virtual-service/#HTTPRoute
+					  route:
+						- destination:
+							host: reviews
+							subset: v3
+						weight: 100											
 	
 Network / Service Resiliency
 	Rate Limiting
 	Circuit Breaker (To prevent our service going down when they are under high load / cascading failures using Outlier Detection, Self healing, Istio vs Netflix Hystrix Library)
+		DestinationRule
+		  spec:
+			host: backend.default.svc.cluster.local
+			trafficPolicy:
+				outlierDetection:
+				  consecutive5xxErrors: 3
+				  interval: 10s
+				  baseEjectionTime: 30s
+				  maxEjectionPercent: 50
 	Fault Tolerance (Retry Policy, 	Timeout)
 	Fault Injection (OR) Chaos testing (delay, abort)
-	
+		Retry and Fault Injection: VirtualService
+				spec:
+					hosts: 
+					http: 
+					- retries:
+						attempts: 3 
+						perTryTimeout: 3s
+						retryOn: 5xx,gateway-error		
+					  fault: 
+					   delay: # inject latency only for "tester" user
+						percentage:
+						 value: 100.0 
+					   fixedDelay: 15s	
+
 Security
+	mTLS
+		Enable mTLS Cluster-Wide -> PeerAuthentication CRD (namespace: istio-system, mode: STRICT)
+		Enable mTLS Namespace-Wide -> PeerAuthentication CRD (namespace: my-namespace, mode: STRICT)
 	Authentication
 	Authorization
-    mTLS
 	Policy
 
 Observability
@@ -48,6 +126,8 @@ Service Discovery
 	Health Check
 	
 *****************************************************************************************
+Deployment Patterns (Dark Launch / Blue Green / Canary / A-B Testing)
+
 Blue / Green Deployment
 	It’s basically a technique for releasing your application in a predictable manner with an goal of reducing any downtime associated with a release.
 

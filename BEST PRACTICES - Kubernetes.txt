@@ -1,3 +1,4 @@
+** Karpenter - Force user to have 'nodeSelector'
 
 
 Kubernetes Admission Controller?
@@ -41,7 +42,7 @@ Open Policy Agent (OPA)
         Enforce No Privileged containers
         Restrict Root User Containers
         Enforce Approved Container Registry
-        Enforce Resource Requests & Limits
+        Enforce Resource Requests & Limits (HPA requires these settings)
         Enforce Required Labels/Annotations
 
 
@@ -137,3 +138,88 @@ EKS
     
 
     
+aws-node vs kube-proxy
+    aws-node ==> Pod Networking
+        DaemonSet in kube-system
+        AWS VPC CNI plugin
+        Assign IP to Pods
+        Attach ENIs
+    kube-proxy ==> Service Networking
+        DaemonSet in kube-system
+        Programs service routing rules
+
+Karpenter
+    Karpenter is an open-source, Kubernetes-native node autoscaler created by AWS that provisions right-sized EC2 instances on demand for Kubernetes workloads.
+    Instead of scaling node groups, Karpenter directly launches EC2 instances based on pod scheduling requirements.
+
+    Karpenter Architecture
+        Reads NodePool for (nodeSelector: on-demand / spot)
+        NodePool CRD - What kind of nodes to create?
+        EC2NodeClass CRD - How to create nodes 
+
+        NodePool CRD
+            Create One NodePool object for on-demand and another one for spot
+            define capacity type (on-demand, spot), vm family etc in NodePool object
+            Reference EC2NodeClass using "nodeClassRef:"
+        EC2NodeClass CRD
+            Which AMI, VPC Subnet, Security Group, IAM Role
+        Karpenter controller watches NodePool objects
+    Benefits
+        Security
+        Reliability
+        Automation
+    Terraform Automation
+        1) Setup Carpenter Controller IAM (Karpenter Assume Role)
+            Policy -> Role -> aws_eks_pod_identity_association (SA <-> Role)
+        2) Setup EC2 Node IAM (Node Assume Role)
+        3) Configure Event Bridge and SQS
+        4) Install Karpenter
+
+Observability
+    Core Outputs:
+        Metrics (CPU Usage, Request Rate, Error Rate Percentage) - WHAT is happening? ==> Amazon Managed Prometheus (AMP) & Amazon Managed Grafana (AMG)
+        Logs (Time stamped records) - WHAT happened and context logs? ==> AWS CloudWatch
+        Traces (Request flow across services)- WHERE and Why? ==> AWS X-Ray
+    OpenTelemetry (OTel) 
+        - is a vendor-neutral, open-source observability framework for collecting, processing, and exporting telemetry data (metrics, logs, and traces)
+        Before OTel 
+            Jaeger SDK                  -> Jaeger Server (Tracing)
+            Prometheus Client Libraries -> Prometheus (Collect Metrics)
+        In OTel
+            OTel SDK -> Otel Collector
+                        -> Exporter 1 -> Jaeger
+                        -> Exporter 2 -> AWS X-Ray
+    AWS Distro for OpenTelemetry (ADOT) 
+        - is a secure, production-ready, AWS-supported distribution of the open-source OpenTelemetry project, providing APIs, libraries, agents, and collectors to gather 
+          metrics, traces, and logs
+        - Install as AWS EKS Add-On which deploy ADOT Operator (Deployment, Service, WebHook)
+        - Install ADOT Collector (Can be deployed as Deployment, StatefulSet, Sidecar Container, DaemonSet)
+        Flow
+            Deployments (Pod with OpenTelemetry annotations) --> scrape metric -> ADOT Collector (Process it) -> Export Traces to X-Ray, Metrics to Prometheus, Logs to CloudWatch
+    ADOT Installation
+        Steps
+            ADOT Collector IAM Policy, Role, Pod Identity Association
+            Cert-Manager Add-On
+            AWS Distro for OpenTelemetry (ADOT) Add-On
+            Kube State Metrics Add-On (watches deployments, pods, ConfigMap etc)
+            Prometheus Node Exporter Add-On (Runs as DaemonSet - monitors Worker node CPU, Disk, Network)
+            Create ADOT Collector Service Account in EKS <- Cluster Role Binding <- Cluster Role
+            Prometheus Workspace
+            Grafana IAM Policy (Read data from Prometheus & Send notifications to SNS), IAM Role, Workspace
+    Deploy Application
+        Configure Annotation in the Deployment
+            .Values.opentelemetry.instrumentation = "default-instrumentation"
+            instrumentation.opentelemetry.io/inject-sdk: {{ .Values.opentelemetry.instrumentation }}
+
+
+
+Useful kubectl Commands:
+    Verify Service Connectivity (Internal Test)
+        kubectl run test --image=curlimages/curl -it --rm -- sh
+        curl http://catalog-service:8080/topology
+
+    DNS Resolution Check
+        kubectl run dns-test --image=busybox:1.28 -it --rm
+        nslookup catalog-service
+            ==> catalog-service.default.svc.cluster.local
+        

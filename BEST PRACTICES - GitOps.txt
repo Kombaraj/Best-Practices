@@ -1,0 +1,415 @@
+
+** GitOps
+    GitOps is a set of practices that use Git repositories as the single source of truth for declarative infrastructure and applications. 
+    It enables automated deployment, monitoring, and management of applications using Git workflows.
+
+    Key Principles of GitOps:
+        1. Declarative Descriptions: All infrastructure and application configurations are defined declaratively in Git repositories.
+        2. Version Control: Git serves as the version control system, providing a history of changes and enabling rollbacks.
+        3. Automated Deployment: Changes to the Git repository automatically trigger deployment processes to update the infrastructure and applications.
+        4. Continuous Reconciliation: The system continuously monitors the desired state in Git and the actual state in the cluster, reconciling any differences.
+    Benefits of GitOps:
+        - Improved Collaboration: Teams can collaborate on infrastructure and application changes using familiar Git workflows.
+        - Enhanced Security: Git's access controls and audit trails help secure infrastructure changes.
+        - Faster Recovery: Rollbacks to previous states are simplified through Git's version history.
+        - Consistency: Ensures that the deployed state matches the desired state defined in Git.
+    Common GitOps Tools:
+        - Argo CD: A declarative, GitOps continuous delivery tool for Kubernetes.
+        - Flux: A set of continuous and progressive delivery solutions for Kubernetes that are GitOps native.
+        - Jenkins X: An open-source CI/CD solution for Kubernetes that supports GitOps practices.
+
+** ArgoCD
+    1-Introduction
+        GitOps
+            GitOps is a set of practices for managing infrastructure and application configurations to expand upon existing processes and improve the application lifecycle.
+            GitOps is a way of implementing Continuous Deployment for cloud native applications.
+        Principle:	
+            Declarative	-> Desired state is defined declaratively (YAML, Helm, Kustomize)
+            Versioned & Immutable	-> Everything is stored and versioned in Git
+            Pulled, not pushed	-> Clusters pull changes from Git (no CI → cluster access)
+            Continuous reconciliation	-> Drift is detected and corrected automatically
+        Why GitOps?
+            No clear audit trail
+            Manual hotfixes cause configuration drift
+            Hard to rollback
+            CI needs cluster credentials (security risk)
+            
+    2-Core Concepts
+        Introduction to ArgoCD
+        Core Concepts
+            Application
+                Source: Helm Charts, Kustomize, YAML files
+            Projects - Logical group of applications
+            Desired State vs Actual State
+            Sync - Process of making "Desired State" to the "Actual State"
+            Refresh - Compare the latest code in Git with the live state. Figure out what is different. Default refresh time 3 minutes.
+        ArgoCD Architecture
+            ArgoCD Server (API + Webserver)
+            ArgoCD Repo Server
+            ArgoCD Application Controller
+            Supporting Components: ArgoCD Dex (Optional, for SSO), Redis Cache
+            
+    3-Setting up ArgoCD
+        Installation:
+            https://argo-cd.readthedocs.io/en/stable/
+            Kubernetes Cluster
+            Non High Availability Setup
+                Cluster-Admin privileges: https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
+                Namespace level privileges: https://github.com/argoproj/argo-cd/raw/stable/manifests/namespace-install.yaml		
+            High Availability Setup
+                Cluster-Admin privileges: https://github.com/argoproj/argo-cd/raw/stable/manifests/ha/install.yaml
+                Namespace level privileges: https://github.com/argoproj/argo-cd/raw/stable/manifests/ha/namespace-install.yaml		
+            Light installation "Core"
+                https://github.com/argoproj/argo-cd/raw/stable/manifests/core-install.yaml
+            Helm chart
+                https://github.com/argoproj/argo-helm/tree/main/charts/argo-cd
+        Non High Availability Setup
+            Create Namespace "argocd"
+            Cluster-Admin privileges: Install this: https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
+            Verify: kubectl get all -n argocd 
+            Get Initial Admin Password
+                kubectl get secret argocd-initial-admin-secret -n argocd -o jsonpath="{.data.password}" | base64 --decode && echo
+            Access ArgoCD Server
+                Option 1: Change ArgoCD Service to "LoadBalancer"
+                Option 2: Use Ingress if Ingress Controller installed
+                Option 3: 
+                    kubectl port-forward svc/argocd-server 8080:443 -n argocd
+                    https://localhost:8080/ (admin/password)
+            Install ArgoCD CLI
+                https://argo-cd.readthedocs.io/en/stable/cli_installation/
+                argocd login localhost:8080 (admin/password)
+                argocd cluster list
+        Repositories:
+            ArgoCD Examples: https://github.com/mabusaa/argocd-example-apps (Clone from ArgoCD GitHub)
+            Course Repo: https://github.com/mabusaa/argocd-course-apps-definitions (Create your own)		
+
+    4-Applications
+        ArgoCD Applications
+            - It's Kubernetes Custom Resource Definition (CRD)
+            - Contains "Source (Git)" and "Destination (Kubernetes)"
+            - Can be created
+                Declarative (Recommended)
+                Web UI
+                CLI
+            - CRD: "Application"
+            - Major Sections: source, sources, destination
+        Create ArgoCD Applications - Using Declarative
+            Repos: 
+                Application -> https://github.com/mabusaa/argocd-course-apps-definitions/blob/main/applications%20and%20projects/application.yaml
+                Deployment Example -> https://github.com/mabusaa/argocd-example-apps/tree/master/guestbook
+            kubectl apply -f application.yaml
+            kubectl get application -n argocd
+            Verify Web UI
+        Create ArgoCD Applications - Using Web UI
+            Deployment Example -> https://github.com/mabusaa/argocd-example-apps/tree/master/guestbook
+            Use namespace "app-1"
+            Deploy & Validate
+        Create ArgoCD Applications - Using CLI
+            Deployment Example -> https://github.com/mabusaa/argocd-example-apps/tree/master/guestbook
+            argocd login
+            argocd app list
+            argocd app create app-2 --repo https://github.com/mabusaa/argocd-example-apps.git --path guestbook --dest-server https://kubernetes.default.svc --dest-namespace app-2 --sync-option CreateNamespace=true
+            argocd app sync app-2
+            argocd app list
+        Source Tools
+            1) Directory of YAML Files
+            2) HELM Chart
+            3) Kustomize
+            Tools detection
+                By default ArgoCD automatically detect the source tool and you can explicitly define as well.
+            Source Tools - Directory of YAML Files
+                "directory" section can be used along with "recurse: true" - for YAML files inside the sub directories 
+                Application -> https://github.com/mabusaa/argocd-course-apps-definitions/blob/main/applications%20and%20projects/application%20-%20Directory%20options.yaml
+                Manifest Files -> https://github.com/mabusaa/argocd-example-apps/tree/master/guestbook-with-sub-directories
+            Source Tools - Helm
+                Sources: 1) Helm Chart "Git" Repo	2) Helm Chart "Helm" Repo
+                Application -> https://github.com/mabusaa/argocd-course-apps-definitions/blob/main/applications%20and%20projects/application%20-%20Helm%20options.yaml
+                Helm Chart Example: https://github.com/mabusaa/argocd-example-apps/tree/master/helm-guestbook
+                kubectl apply -f <Application.YAML>
+            Source Tools - Kustomize
+                "kustomize" section with "namePrefix", "commonLabels" options
+                Application -> https://github.com/mabusaa/argocd-course-apps-definitions/blob/main/applications%20and%20projects/application%20-%20kustomize%20options.yaml
+                Kustomize Manifest -> https://github.com/mabusaa/argocd-example-apps/tree/master/kustomize-guestbook
+            Source Tools - Multiple Sources
+                "sources" field (Plural)
+                Usecase 1: Combine related resources into one application.
+                    Source 1: Redis Helm Chart
+                    Source 2: Redis Prometheus Exporter Helm Chart
+                    Application -> https://github.com/mabusaa/argocd-course-apps-definitions/blob/main/applications%20and%20projects/multiple-sources/redis.yaml
+                Usecase 2: Remote HELM chart with Git Hosted values file
+                    Source 1: Remote Helm Chart (Like NGINX)
+                    Source 2: Values from Git
+                    Application -> https://github.com/mabusaa/argocd-course-apps-definitions/blob/main/applications%20and%20projects/multiple-sources/ingress-nginx.yaml
+
+    5-Projects
+        Projects
+            - Logical grouping of ArgoCD Applications
+            - 'default' project comes with ArgoCD which can not be deleted
+            - Can provide Access Restrictions to Project so that it applies to all Applications inside it.
+                Allow specific sources only
+                Allow apps to be deployed in specific clusters & namespaces
+                Allow only specific kubernetes resources to be deployed
+            - Project Roles
+                You can grant access to CI systems to sync specific applications - JWT
+                You can grant access to OIDC groups to access specific applications - OIDC
+        Projects Creation
+            - Can be created
+                Declarative (Recommended)
+                Web UI
+                CLI
+            - CRD: "AppProject"
+            - Major Sections: sourceRepos, destinations, clusterResourceWhitelist, namespaceResourceWhitelist, namespaceResourceBlacklist
+            - To specify the project inside the application use "project: project-1" section
+        Create Basic Project - Declarative
+            - Allow all sources (repos)
+            - Allow all destinations
+            - Allow all cluster and namespace level resources
+            Project -> https://github.com/mabusaa/argocd-course-apps-definitions/blob/main/applications%20and%20projects/project.yaml
+            Application -> https://github.com/mabusaa/argocd-course-apps-definitions/blob/main/applications%20and%20projects/application%20-%20set%20project.yaml
+        Create Project - Allow specific destinations
+            - Allow all sources (repos)
+            - Allow 'local cluster' and namespace 'ns-1' only as destinations
+            Project -> https://github.com/mabusaa/argocd-course-apps-definitions/blob/main/applications%20and%20projects/project%20-%20whitelist%20namespace.yaml
+            Application -> https://github.com/mabusaa/argocd-course-apps-definitions/blob/main/applications%20and%20projects/application%20-%20dev%20project.yaml
+        Project Roles
+            Role <- collection of policies
+            "role" section in the project manifest
+            "policies" section under "role" section
+                p, <role name>, <resource>, <action>, <project/object>, <allow/deny> 
+                Example: p, proj:staging-db-admins:staging-db-role, applications, create, staging-db-admins/*, allow
+            Create Project with Roles - Declarative
+                - Allow all sources (repos)
+                - Allow all destinations
+                - Allow all cluster and namespace level resources
+                - Define a role with sync permission to all applications in the same project
+                - Create Token related to this role
+                - Try to delete the application using the generated token. ArgoCD should deny the action
+                Project -> https://github.com/mabusaa/argocd-course-apps-definitions/blob/main/applications%20and%20projects/project%20-%20role.yaml
+                Create Token: argocd proj role create-token project-with-role ci-role 
+                Try: argocd app delete app-1 --auth-token=<TOKEN>
+
+    6-Repositories
+        Repositories
+            Public Repos - Can be access directly in the applications
+            Private Repos - needs to be registered in ArgoCD with proper authentication
+                Connect Approaches:
+                    - HTTPS -> Username/Password or Token
+                    - SSH -> using SSH private key
+                    - GitHub -> GitHub App Credential (App ID, Installation ID, and Private Key.)
+                IMPORTANT: Private Repo credentials are stored as normal Kubernetes "Secret" object
+                    To define a repo you have to add a label in Secret Object as "metadata: -> labels: -> argocd.argoproj.io/secret-type: repository"
+                You can register repos 1) Declarative 2) CLI 3) Web UI
+                Reference: https://argo-cd.readthedocs.io/en/stable/user-guide/private-repositories/#github-app-credential
+                Private Repos - Using HTTPS - GitHub
+                    1. Create a Personal Access Token (PAT) in GitHub
+                        Go to GitHub → Settings → Developer Settings → Personal Access Tokens.
+                        Generate a token with repo scope (read access is enough).
+                    2. Store GitHub Credentials in Kubernetes Secret
+                        Secret -> https://github.com/mabusaa/argocd-course-apps-definitions/blob/main/repos/private-repo-https.yaml
+                    3. Reference the Repo in Application Manifest
+                        Application -> https://github.com/mabusaa/argocd-course-apps-definitions/blob/main/applications%20and%20projects/application-with-private-repo.yaml
+                Private Repos - Using SSH - GitHub							
+                    1. Generate an SSH Key Pair
+                            ssh-keygen -t ed25519 -C "argocd-access" -f argocd-github-key -N ""
+                            argocd-github-key → private key
+                            argocd-github-key.pub → public key
+                    2. Add Public Key to GitHub
+                            Go to GitHub → Settings → SSH and GPG keys → New SSH key.
+                            Paste the contents of argocd-github-key.pub.
+                            Give it a descriptive name (e.g., argocd-access).
+                    3. Create ArgoCD Secret with SSH Private Key
+                        Secret -> https://github.com/mabusaa/argocd-course-apps-definitions/blob/main/repos/private-repo-ssh.yaml
+                    4. Reference Repo in Application Manifest
+                        Application -> https://github.com/mabusaa/argocd-course-apps-definitions/blob/main/applications%20and%20projects/application-with-private-repo-ssh.yaml
+            Helm Repos
+                Public Repos
+                Private Repos
+            Credential Templates
+                Credential Templates are reusable repository credentials you define once and have Argo CD automatically apply to any repo URL that matches their prefix. This saves you from repeating credentials for every private repo and makes GitOps-friendly, declarative setup easy. You define them as Kubernetes Secrets labeled with argocd."argoproj.io/secret-type: repo-creds" in the Argo CD namespace.
+                Secret -> https://github.com/mabusaa/argocd-course-apps-definitions/blob/main/repos/private-repo-creds-https.yaml
+
+    7-Sync Policies and Options 
+        1) Automated Sync
+            ArgoCD polls Git repositories every 3 minutes
+            WebUI, CLI & Declarative
+            Automated Sync - CLI (--sync-policy flag)
+                argocd app create app-2 --repo https://github.com/mabusaa/argocd-example-apps.git --path guestbook --dest-server https://kubernetes.default.svc --dest-namespace app-2 --sync-policy automated
+            Automated Sync - Declarative (syncPolicy: section -> automated: {}) 
+                Application -> https://github.com/mabusaa/argocd-course-apps-definitions/blob/main/applications%20and%20projects/application%20-%20Automated%20Sync.yaml
+        2) Automated Pruning
+            Pruning (syncPolicy -> automated: -> prune: true)
+                - is the action Argo CD takes to delete Kubernetes resources that used to be defined in Git but are no longer present in the desired state (e.g., you removed a manifest from your repo). By default, Argo CD does not automatically delete such resources; you must explicitly enable pruning. 
+                - Default -> DISABLED
+                - CLI -> --auto-prune flag
+            Declarative
+                Application Level -> https://github.com/mabusaa/argocd-course-apps-definitions/blob/main/applications%20and%20projects/application%20-%20Automated%20Prune.yaml
+                Resource Level
+                    - Resource-level pruning gives you fine-grained control—you can allow pruning globally but prevent deletion for specific resources.
+                    - metadata: -> annotations: -> argocd.argoproj.io/sync-options: Prune=false
+                    Deployment manifest -> https://github.com/mabusaa/argocd-example-apps/tree/master/sync-options/no-prune
+                    Application -> https://github.com/mabusaa/argocd-course-apps-definitions/blob/main/applications%20and%20projects/sync-options/application%20-%20No%20prune.yaml
+        3) Automated Self Healing
+            Self-Healing ((syncPolicy -> automated: -> selfHeal: true) 
+                - means Argo CD automatically brings your live Kubernetes resources back to the state defined in Git, whenever someone changes them in the cluster.
+                - Default -> DISABLED
+                - CLI -> --self-heal 
+            Declarative
+                Application -> https://github.com/mabusaa/argocd-course-apps-definitions/blob/main/applications%20and%20projects/application%20-%20Automated%20Self-Healing.yaml
+                Scale the deployment replicas
+                    kubectl scale deployment/guestbook-ui --replicas=5 -n auto-selfheal
+                Self-Heal will restore the replicas as per manifest
+        4) Sync Options
+            Selective Sync
+                - Selective Sync lets you sync only specific resources instead of syncing the entire Argo CD Application.
+                - Applies at Application level only
+                - syncPolicy: -> syncOptions: -> ApplyOutOfSyncOnly=true
+                Deployment Manifest -> https://github.com/mabusaa/argocd-example-apps/tree/master/sync-options/selective-sync
+                Application -> https://github.com/mabusaa/argocd-course-apps-definitions/blob/main/applications%20and%20projects/sync-options/application%20-%20Selective%20Sync.yaml
+                Update the replica count in deployment manifest and see the result updating only specific resource 'deployement'
+            FailOnSharedResource
+                - When the FailOnSharedResource option is enabled, Argo CD will fail the sync operation if it detects that any resource in the diff is already owned by another Application. 
+                    Application 1 -> (No Changes) https://github.com/mabusaa/argocd-course-apps-definitions/blob/main/applications%20and%20projects/application%20-%20set%20project.yaml
+                    Application 2 -> (syncPolicy: -> syncOptions: -> FailOnSharedResource=true)
+                        https://github.com/mabusaa/argocd-course-apps-definitions/blob/main/applications%20and%20projects/sync-options/application%20-%20Fail%20On%20Shared%20Resources.yaml
+            Replace Resources 
+                - By default, Argo CD updates live resources using patch/apply semantics. The Replace=true sync option tells Argo CD to update resources using a full object replace (PUT), i.e., it sends the entire desired manifest to the API server to replace the current one.
+                - In manifest, [metadata: -> annotations: -> argocd.argoproj.io/sync-options: Replace=true]
+                - While sync, AgroCD will re-create the resources annotated with the above sync option.
+                - kubectl apply vs kubectl replace
+                Deployment Manifest -> https://github.com/mabusaa/argocd-example-apps/blob/master/sync-options/replace/deployment.yaml
+                Application -> https://github.com/mabusaa/argocd-course-apps-definitions/blob/main/applications%20and%20projects/sync-options/application%20-%20Replace.yaml
+            Prune Last 
+                - PruneLast is a sync option: First apply all creates/updates → then prune (delete) orphaned resources.
+                - PruneLast=true ==> Result: zero downtime rollout
+
+    8-Tracking Strategies
+        Argo CD can track four types of Git references:
+            - Tag Tracking
+            - Fixed Commit SHA
+            - Symbolic References (HEAD, HEAD~1, etc.)
+            - Branch Tracking
+        spec: 
+            -> source: -> targetRevision: v1 (Git - Tag)
+            -> source: -> targetRevision: 1.2.1 (Helm - Version)
+        Tag Tracking
+            Application -> https://github.com/mabusaa/argocd-course-apps-definitions/blob/main/applications%20and%20projects/tracking-strategies/application%20-%20tracking%20git%20tag.yaml
+        Fixed Commit SHA
+            Application -> https://github.com/mabusaa/argocd-course-apps-definitions/blob/main/applications%20and%20projects/tracking-strategies/application%20-%20tracking%20git%20commit%20sha.yaml
+        Symbolic References (HEAD, HEAD~1, etc.)
+            Application -> https://github.com/mabusaa/argocd-course-apps-definitions/blob/main/applications%20and%20projects/tracking-strategies/application%20-%20tracking%20git%20head.yaml
+        Branch Tracking
+            - targetRevision: develop 
+        Helm Chart Tracking
+            Application -> (Range of Versions) https://github.com/mabusaa/argocd-course-apps-definitions/blob/main/applications%20and%20projects/tracking-strategies/application%20-%20tracking%20helm%20range.yaml
+            Application -> (Latest Version) https://github.com/mabusaa/argocd-course-apps-definitions/blob/main/applications%20and%20projects/tracking-strategies/application%20-%20tracking%20helm%20latest%20version.yaml
+
+    9-Diffing Customization
+        - Diffing Customizations (via 'ignoreDifferences' section in Application manifest) 
+        - Let you tell Argo CD to ignore specific fields or parts of resources during the Git ↔ live comparison so your app doesn’t show OutOfSync for changes that are expected or managed by 
+            other controllers.
+        Use Case 1: Ignore if any changes in replicas count
+            Application -> https://github.com/mabusaa/argocd-course-apps-definitions/blob/main/applications%20and%20projects/application%20-%20Diffing%20Customization.yaml
+            Manifest -> https://github.com/mabusaa/argocd-example-apps/tree/master/guestbook-with-sub-directories
+            Make some changes in replicas in manifest, ArgoCD will simply ignore the changes as part of Sync operation.
+        Use Case 2: Ignore changes as part of Istio installation
+            Application -> https://github.com/mabusaa/argocd-course-apps-definitions/blob/main/applications%20and%20projects/application%20-%20Diffing%20Customization%20for%20istio.yaml
+
+    10-Sync Phases and Waves
+        Sync Phases
+            - define logical stages for deploying Kubernetes applications
+            Core Sync Phases
+                - PreSync
+                - Sync
+                - PostSync
+                - SyncFail
+                - PostSyncFail
+            Manifest: metadata: -> annotations: -> argocd.argoproj.io/sync-wave: PreSync
+            Hook Deletetion Policies
+                - Hook resources can be automatically deleted by several options using this annotation "argocd.argoproj.io/hook-delete-policy:"
+            Sync Phases - Resource Hook Demo 
+                Job Manifest -> https://github.com/mabusaa/argocd-example-apps/tree/master/sync-phases
+                Application -> https://github.com/mabusaa/argocd-course-apps-definitions/blob/main/applications%20and%20projects/sync-phases-waves/application%20-%20resources%20hooks.yaml
+        Sync Waves
+            - Sync Waves let you define the order in which individual resources are applied during a sync.
+            - metadata: -> annotations: -> argocd.argoproj.io/sync-wave: "0"
+            - Lower wave = applied first and Higher wave = applied after earlier ones succeed
+            Manifest -> https://github.com/mabusaa/argocd-example-apps/blob/master/sync-waves/manifests.yaml
+            Application -> https://github.com/mabusaa/argocd-course-apps-definitions/blob/main/applications%20and%20projects/sync-phases-waves/application%20-%20sync%20waves.yaml
+            
+    11-Remote Kubernetes Clusters
+        - Can create Remote Kubernetes Cluster using secret object with "metadata: -> labels: -> argocd.argoproj.io/secret-type: cluster"
+        Secret Manifest -> https://github.com/mabusaa/argocd-course-apps-definitions/blob/main/clusters/staging-digitalocean.yaml
+        Application -> https://github.com/mabusaa/argocd-course-apps-definitions/blob/main/applications%20and%20projects/application%20-%20remote%20cluster.yaml
+        Use Case: Connect to EKS Cluster
+            STEP 1 — Create a ServiceAccount in EKS
+                kubectl create sa argocd-remote -n kube-system
+            STEP 2 — Bind Permissions
+                kubectl create clusterrolebinding argocd-remote-admin \
+                --clusterrole=cluster-admin \
+                --serviceaccount=kube-system:argocd-remote
+            STEP 3 — Get the Token
+                Get Secret Name: kubectl -n kube-system get sa argocd-remote -o jsonpath="{.secrets[0].name}"
+                Get Token: kubectl -n kube-system get secret <SECRET_NAME> -o jsonpath="{.data.token}" | base64 -d
+            STEP 4 — Get the Cluster CA
+                kubectl -n kube-system get secret <SECRET_NAME> -o jsonpath="{.data['ca.crt']}"	
+            STEP 5 — Create ArgoCD Cluster Secret
+                Create Secret with API Server URL, Token, CA cert 
+                kubectl apply -f eks-cluster-secret.yaml
+                argocd cluster list
+            STEP 6 — Deploy an App to EKS
+                Create an ArgoCD application and point destination to API Server URL
+
+    12-ApplicationSet
+        - ApplicationSet is a Kubernetes controller (part of ArgoCD) that allows you to automatically generate multiple ArgoCD Applications from a single template
+        - How ApplicationSet Works 
+            ApplicationSet has:
+                Generators → decide how many Applications should be created
+                Template → defines what each Application looks like
+            ApplicationSet Controller (has ApplicationSet CRD) -> CRUD operations -> Application CRDs -> ArgoCD uses Application to deploy
+        Use Cases:
+            1. Single Kubernetes manifest to deploy into multiple Kubernetes clusters
+            2. Deploy multiple applications from one or multiple Git Repos
+            3. ApplicationSet creates apps per branch.
+            4. Instead of writing 100 Application YAML files, write 1 ApplicationSet YAML.
+        Types of Generators
+            List Generator
+            Cluster Generator
+            Git Generator
+            Matrix Generator
+            Pull Request Generator
+        List Generator
+            Deploy an Application into two clusters
+            ApplicationSet -> https://github.com/mabusaa/argocd-course-apps-definitions/blob/main/application%20set/list-generator.yaml
+        Cluster Generator
+            Local Cluster as Secret Object -> https://github.com/mabusaa/argocd-course-apps-definitions/blob/main/clusters/local-cluster.yaml
+            Remote Cluster as Secret Object -> https://github.com/mabusaa/argocd-course-apps-definitions/blob/main/clusters/staging-digitalocean.yaml
+            Deploy one application into all clusters -> https://github.com/mabusaa/argocd-course-apps-definitions/blob/main/application%20set/cluster-generator-all.yaml
+            Deploy one application into cluster mateches a label -> https://github.com/mabusaa/argocd-course-apps-definitions/blob/main/application%20set/cluster-generator-matching-labels.yaml
+        Git Directory Generator
+            - Deploy multiple applications (all helm charts under a folder) into local cluster
+            ApplicationSet -> https://github.com/mabusaa/argocd-course-apps-definitions/blob/main/application%20set/git-directory-generator.yaml
+        Matrix Generator
+            - Deploy multiple applications into all clusters which has label "non-prod=true"
+            ApplicationSet -> https://github.com/mabusaa/argocd-course-apps-definitions/blob/main/application%20set/matrix-generator.yaml
+        Pull Request Generator
+            - Discovers open pull requests and generate new application.
+            ApplicationSet -> https://github.com/mabusaa/argocd-course-apps-definitions/blob/main/application%20set/pull-request-generator.yaml
+
+    13-Best Practices
+        App of Apps 
+            - App of Apps is a design pattern in ArgoCD where one “root” ArgoCD Application deploys and manages multiple other ArgoCD Applications.
+            - Instead of manually creating many ArgoCD apps via UI/CLI, you create one parent Application that points to a Git repo containing the definitions of child Applications, and ArgoCD auto‑creates them.
+            App of Apps Application -> https://github.com/mabusaa/argocd-course-app-of-apps
+                Directory Approach -> https://github.com/mabusaa/argocd-course-app-of-apps/blob/main/root-app-directory-approach.yaml
+                Helm Chart Approach -> https://github.com/mabusaa/argocd-course-app-of-apps/blob/main/root-app-helm-approach.yaml
+        ConfigMap updated but pod still see old values
+            Usually we have to restart, but with ArgoCD it will sync up automatically
+                
+
+    ArgoCD Notes:
+    Pruning 
+        - is the action Argo CD takes to delete Kubernetes resources that used to be defined in Git but are no longer present in the desired state (e.g., you removed a manifest from your repo). By default, Argo CD does not automatically delete such resources; you must explicitly enable pruning. 
+
+
+
+    
