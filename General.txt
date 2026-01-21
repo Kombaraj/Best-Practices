@@ -7,8 +7,7 @@ Service Mesh: Istio (Latest Version  1.28)
 Package Manager: Helm
 
 
-BP1:
-    Older Istio Ingress Controller vs New ALB with Istio Ingress
+
 
 
 

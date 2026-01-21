@@ -1,9 +1,7 @@
 ** Karpenter - Force user to have 'nodeSelector'
 
-
 Kubernetes Admission Controller?
     A Kubernetes Admission Controller is a gatekeeper that intercepts API requests after authentication & authorization but before the object is persisted in etcd.
-
     Types:
         Mutating Admission Controllers
             Examples
@@ -49,6 +47,16 @@ Open Policy Agent (OPA)
 EKS
     Pre-Requisites Resources:
         VPC, Subnets (Public/Private), Route Tables, NAT Gateway + Elastic IP, Internet Gateway
+    EKS Add-Ons
+        Amazon Pod Identity Agent - Amazon Pod Identity allows Kubernetes pods to assume IAM roles
+        Amazon EBS CSI Driver - Dynamically provision EBS volumes
+        Metric Server - Provides resource metrics to Kubernetes
+        AWS Distro for OpenTelemetry - Collects: Metrics, Traces, Logs
+        Kube State Metrics - Exposes Kubernetes object state as metrics
+        Prometheus Node Exporter - Exposes node-level metrics
+        External DNS - Automatically manages Route53 records
+        Secret Store CSI Driver
+
     EKS Resources:
         EKS Cluster
             EKS Cluster IAM Role (Policy: AmazonEKSClusterPolicy, AmazonEKSVPCResourceController)
@@ -135,9 +143,31 @@ EKS
     # Access the cluster
         aws eks --region us-east-1 update-kubeconfig --name hr-stag-eksdemo1
 
+    IRSA vs PIA
+        IRSA (IAM Roles for Service Accounts)
+            1 - Collect EKS Cluster OpenID Connect Provider URL
+            2 - Create OIDC provider in IAM
+            3 - Create IAM Policy (with trust policy "AssumeRoleWithWebIdentity" for "system:serviceaccount:kube-system:<ANY CONTROLLER>"), IAM Role
+            4 - Annotate Service account with IAM Role ARN
+            5 - Install Add-on (Eg: EBS CSI Driver) with service-account-role-arn
+            Pod → ServiceAccount (JWT) → OIDC Provider (EKS)  → AWS STS  → IAM Role  → AWS Service
+        PIA (Pod Identity Agent)
+            Amazon Pod Identity allows Kubernetes pods to assume IAM roles
+            1 - Install EKS Pod Identity Agent (UI or CLI or Terraform 'aws_eks_addon') which runs Daemonset
+            2 - Create IAM Policy (with trust policy who can assume), IAM Role
+            3 - Create Pod Identity Association (Associate the Service Account with IAM Role)
+            4 - Install Add-on (Eg: EBS CSI Driver) with service-account-role-arn
+
+On-Prem Kubernetes Encryption vs EKS Encryption
+    On-Prem:
+        Configure 'EncryptionConfiguration' object with any Encryption algorithm with encode secret in a config file.
+        Update that config file in API Server's manifest (--encryption-provider-config=config.yaml)
+    EKS:
+        Install AWS Secrets Manager CSI Driver Provider (aws github) using Helm in kube-system namespace => Run as Daemonset
+        Install Kubernetes Secret Store CSI Driver Provider (sigs github) using Helm in kube-system namespace => Run as Daemonset
+        Pod Identity Association (Map Kubernetes ServiceAccount to IAM Role)
     
 
-    
 aws-node vs kube-proxy
     aws-node ==> Pod Networking
         DaemonSet in kube-system
@@ -212,6 +242,10 @@ Observability
             instrumentation.opentelemetry.io/inject-sdk: {{ .Values.opentelemetry.instrumentation }}
 
 
+CSI => The Container Storage Interface (CSI) in Kubernetes is a standard API specification that allows storage vendors to develop plugins, called CSI drivers
+CNI => (Container Network Interface) is a crucial specification and set of libraries in Kubernetes that standardizes how networking is configured for pods.
+    AWS VPC CNI, Calico, Cilium
+OCI => Open Container Initiative (OCI) standards, which are open specifications for container formats (images) and runtimes
 
 Useful kubectl Commands:
     Verify Service Connectivity (Internal Test)

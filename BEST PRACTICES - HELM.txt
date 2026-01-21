@@ -82,4 +82,22 @@ Troubleshooting
     helm history <release> **
     helm uninstall <release>
 
+Kustomize vs Helm
+    | Category              | **Kustomize**                    | **Helm**                       |
+    | --------------------- | -------------------------------- | ------------------------------ |
+    | Core idea             | Overlay-based YAML customization | Package manager for Kubernetes |
+    | How it works          | Patches existing YAML            | Go template rendering          |
+    | Templating            | ❌ No templating                | ✅ Full templating              |
+    | YAML duplication      | Very low                         | Low                            |
+    | Learning curve        | Low                              | Medium                         |
+    | Native to kubectl     | ✅ Yes (`kubectl apply -k`)     | ❌ No                           |
+    | Package versioning    | ❌ No chart versions            | ✅ Chart versions               |
+    | Release management    | ❌ Not tracked                  | ✅ Tracks releases              |
+    | Rollback support      | ❌ Manual                       | ✅ `helm rollback`              |
+    | Dependency management | ❌ Not supported                | ✅ Supported                    |
+    | Best use case         | Env-specific config overlays     | Reusable application packaging |
+    | GitOps (ArgoCD)       | Excellent                        | Excellent                      |
+    | Debugging             | Easy (pure YAML)                 | Harder (templated output)      |
+    | Tooling required      | None extra                       | Helm CLI                       |
+    | Popular in            | Platform teams                   | App/platform teams             |
 

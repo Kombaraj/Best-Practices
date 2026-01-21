@@ -125,6 +125,8 @@ Service Discovery
 	Discovery
 	Health Check
 	
+BP1:
+    Older Istio Ingress Controller vs New ALB with Istio Ingress
 *****************************************************************************************
 Deployment Patterns (Dark Launch / Blue Green / Canary / A-B Testing)
 
