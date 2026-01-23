@@ -1,18 +1,23 @@
-Container Orchestration: Kubernetes
+Container Orchestration: Kubernetes v 1.35 , EKS v 1.34
 CI: Jenkins
 CD: ArgoCD (GitOps)
-IaC: Terraform
+IaC: Terraform v 1.14.3
 Cloud: AWS
-Service Mesh: Istio (Latest Version  1.28)
-Package Manager: Helm
+Service Mesh: Istio v 1.28
+Package Manager: Helm v 3
 
-
-
-
-
-
-
-
+Best Practices:
+    How to optimize the CI/CD system
+    New features (Terraform providers: aws vs awscc provider, IRSA vs PIA, Helm Classic HTTP and OCI)
+    Deprecated features (Eg: Terraform Refresh, ingress-nginx)
+    Re-factor 
+    Implement best practices
+    Identify different use cases
+    1) Older Istio Ingress Controller vs New ALB with Istio Ingress
+    2) Security:
+        Terraform Plain text in State file
+        Plain Text Secret in Kubernetes
+    3) Use third party CRDs effectively (Eg: ApplicationSet creates Application CRD, ConstraintTemplate creates Constraint CRDs)
 
 
 Your Roles and Responsibilities : 

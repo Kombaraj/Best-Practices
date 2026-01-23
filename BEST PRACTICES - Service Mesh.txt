@@ -48,7 +48,7 @@ Network Traffic Management
 	Loadbalancing (Challenge is proliferation of Load balancers)
 		DestinationRule -> trafficPolicy: -> loadBalancer: -> simple: RANDOM/ROUND_ROBIN/LEAST_CONN
 	Routing (Weight based, Header based, Path based, Mirror Live Traffic)
-		Canary(Weight based): 
+		Canary(Weight based): (Falgger can be use with Istio)
 			Label the pods (app: reviews, version: v1,v2...)
 			VirtualService -> route: 
 								weight: 10% 
@@ -125,8 +125,7 @@ Service Discovery
 	Discovery
 	Health Check
 	
-BP1:
-    Older Istio Ingress Controller vs New ALB with Istio Ingress
+
 *****************************************************************************************
 Deployment Patterns (Dark Launch / Blue Green / Canary / A-B Testing)
 

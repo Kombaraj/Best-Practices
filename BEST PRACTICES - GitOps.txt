@@ -37,9 +37,10 @@
     2-Core Concepts
         Introduction to ArgoCD
         Core Concepts
-            Application
+            Application (CRD -> Application)
                 Source: Helm Charts, Kustomize, YAML files
-            Projects - Logical group of applications
+            Projects (CRD -> AppProject)- Logical group of applications
+            ApplicationSet (CRD -> ApplicationSet)
             Desired State vs Actual State
             Sync - Process of making "Desired State" to the "Actual State"
             Refresh - Compare the latest code in Git with the live state. Figure out what is different. Default refresh time 3 minutes.

@@ -15,14 +15,14 @@ Modules
 	* Module Cache Issue:
 		Always specify the module version. In case if version specified in the root module, terraform will use the previously cached version of module.
 		terraform init -upgrade ==> Pulls latest version but be mindful: upgrading modules can introduce breaking changes.
-
 Anti-Patterns
 		Editing Terraform State manually
 		Using 'count' with resources that change order (use 'for_each' instead)
 		Using Terraform as configuration manager (Provisioners should be the last resort)
 terraform apply -refresh-only command (deprecated terraform refresh) - Key Issues and Cautions
 	Risk of Inadvertent State Corruption (Misconfigured Credentials)
-		If you have misconfigured provider credentials (e.g., pointing to the wrong cloud account), Terraform might be unable to find the expected resources in that account. It could then mistakenly assume the resources have been deleted and remove them from its state file.
+		If you have misconfigured provider credentials (e.g., pointing to the wrong cloud account), Terraform might be unable to find the expected resources in that account. 
+		It could then mistakenly assume the resources have been deleted and remove them from its state file.
 	Does Not Modify Configuration Files
 	Skip Confirmation in Interactive Mode if "apply -refresh-only -auto-approve"
 	

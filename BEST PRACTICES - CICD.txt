@@ -20,3 +20,7 @@ Shared Libraries
 Parallel execution ( 'parallel' inside 'stage' block)
 Regularly update Plugins
 Deployment Approach (Helm, GitOps ArgoCD)
+
+Secrets
+	withCredentials([string(credentialsId: 'my-secret-text-id', variable: 'MY_SECRET_TOKEN')])
+	HashiCorp Vault Plugin (AppRole role-id and secret-id)
