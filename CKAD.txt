@@ -1,0 +1,364 @@
+******** KodeKloud Troubleshooting Start **********
+    ImagePull Errors
+        Wrong Image Name (may be typo)
+        Wrong Image Tag
+        Invalid Authentication to Docker Hub - 401 Inauthorized
+            Modify Pod -> spec: imagePullSecrets: - name: <mysecret>
+        No such host
+            Failed to resolve.
+            Lookup gitlab.KodeKloud.com on 172.89.77.10 - No duch host
+            Try: nslookup gitlab.KodeKloud.com
+            If no response, work with network team to fix it
+
+    Crashing Pods
+        Exit Code: 1 - Means Application Error -> 1
+            Last State: Terminated
+            Reason: Error
+            Exit Code: 1 
+            Verify the pod log, sometime Environment variables missing to connect to backend pod
+        Exit Code: 1 - Means Application Error -> 2
+            Verify the pod log, sometime "/etc/nginx/nginx.conf" - No such file 
+            Volume configured but volumeMounts - might be missing
+        Exit Code: 1 - Means Application Error -> 2 
+            Memory - OOMKilled
+            Last State: Terminated
+            Reason: OOMKilled  
+            => Increase resource -> limits  in the pod definition
+        Exit Code: 2 - Warning
+            Check pod log, looks command/argument incorrect
+            Example: "mongo --replSet rs0" should be wrong. Fix it as "mongod --replSet rs0"
+        Exit Code: 137 - Means External error
+            Liveness Probe Failed - 404
+            Fix the Liveness endpoint path to correct one
+        Exit Code: 137 - Means External error
+            Liveness Probe Failed - Connection refused
+            Close watch to "Liveness" section in the describe for "delay", "timeout"
+            initialDelaySeconds, periodSeconds may be too low
+        Exit Code: 128 - Unable to start container process: "./startup.sh" permission denied
+            Provide necessary permission to the script in the docker image and use the updated version
+
+    Pending Pods - "Pending"
+        Use case 1 - Insufficient Resource
+            1 Insufficient CPU, 1 node has untolerated taint
+            Check node's CPU count - using describe node
+            Check resources: requests: cpu (decrease)
+        Use case 2 - nodeSelector
+            1 node didn't match Pod's node affinity/selector, 1 node has untolerated taint
+            Pod may have nodeSelector label but node doesn't have matching Label
+            kubectl label nodes node01 type:gpu
+        Use case 3 - Taint/Toleration 
+            1 node has untolerated taint
+            Check the taint in the worker node 
+            Add toleration in the pod's definition
+
+    Missing Pods
+        Use case 1 - Desired multiple pods are not running, No clue in the describe.
+            Describe Deployment (5 desired - 2 available - 3 unavailable)
+            kubectl get events => Resource Quota related error
+            Check Resource Quota in namespace - describe namespace -> find resource quota object and Increase pod limit
+            kubectl rollout restart deploy my-deploy
+        Use case 1 - Single Replica - still not running, No clue in the describe.
+            kubectl get events => Service Account not found error
+            Service account mentioned in the deployment manifest but not present in the cluster
+            Create Service Account - k create sa <my-sa>
+
+    Schrodinger's Deployment - A deployment that is both successful and broken at the same time, depending on where and how you look.
+        Blue 
+            pod (color: blue, version: v1)
+            Service (version: v1)
+        Green 
+            pod (color: green, version: v1)
+            Service (color: green, version: v1)
+        Many time Blue Service send traffic to Green which is not expected, so add "Blue Service (color: blue, version: v1)"
+        k get endpoints -> to verify
+
+    Create Container Errors
+        Stages: Pull Image -> Generate Container Configuration (Env variable, Volume) -> Create Container -> Start Container
+
+        CreateContainerConfigError ==> occur during "Generate Container Configuration" stage
+        CreateContainerError       ==> occur during "Create Container" stage
+        RunContainerError          ==> occur during "Start Container" stage
+
+        CreateContainerConfigError 
+            Error - Secret <XYX> not found
+            Some ENV variable refers Secret object which is not found, create secret will fix the issue
+        CreateContainerError - ENTRYPOINT command missing
+            Error - Failed to generate container, spec: no command specified
+            Goto container section and add some entrypoint command like "command: ["sleep", "3600"]
+        RunContainerError - - ENTRYPOINT command is invalid
+            Error - start container process, executable not found
+            Goto container section and add some entrypoint command like "command: ["sleep", "3600"]
+
+    ConfigMap/Secret out of date 
+        Changes in ConfigMap/Secret won't effect immediate in Pod, it need restart
+        Change ConfigMap, rollout -> k rollout restart deploy my-deploy
+
+    Endlessly Terminating Pods
+        Pods running in "Terminating" state
+        Way 1: k delete pod <pod-name> --force
+        Way 2: Remove "finalizers" value if any in the pod definition
+
+    Field Immutability
+        Some field change is not allowed via kubectl apply -f <>
+        You have to delete & re-create
+
+    enableServiceLinks
+        enableServiceLinks controls whether Kubernetes Services are automatically injected as environment variables into Pods.
+        It’s enabled by default for legacy reasons, but modern best practice is to disable it and rely on DNS-based service discovery.
+
+    Secret
+        RBAC
+
+    Port - Service targetPort should match to Pod's container port.
+        Service (port:80, targetPort:8000)
+        Pod (containerPort:80)
+        Fix Service's targetPort
+
+    Network Policies
+        1) AND vs OR
+        2) NetworkPolicies are additive
+        3) Be mindful of default behavior (Default Deny)
+
+    Ingress
+        Ingress Routes to Service
+
+    Multi-Attach Volume Error
+        Deployment Strategy: Change it to Recreate from RollingUpdate
+
+******** KodeKloud Troubleshooting End **********
+
+******** Troubleshooting Kubernetes Pods - Start *****
+    Pod not scheduled Error
+    Pods Scheduled & Container Creation Error
+    Pods Scheduled & Container Runtime Error
+
+    option1: Insufficient Resource
+    option2: Node Affinity
+    option3: Unbound Persistent Volume
+    option4: Node Taint
+    option5: Unavailable Configmap
+    option6: Unavailable Secret
+    option7: Resource Quota
+    option8: Image Pull Back Off
+    option9: CrashLoopBackOff-OutofMemory
+    option10: CrashLoopBackOff-Healthcheck
+    option11: CrashLoopBackOff-Init
+    option12: CrashLoopBackOff-Runtime
+    option13: Runtime Error-Service
+
+    option1: Insufficient Resource
+        kubectl get pods -w
+            Pod is in "pending" state
+        kubectl describe pod <pod-name>
+            Check "Events" 
+            Verify CPU, Memory 
+
+    option2: Node Affinity
+        Pod is in "pending" state
+        nodeSelector in manifest, set label to the node 
+
+    option3: Unbound Persistent Volume
+        Pod is in "pending" state
+        Check PVC - in "Pending", PV, StorageClass
+
+    option4: Node Taint
+        Pod is in "pending" state
+        Check node taints, add toleration in manifest
+
+    option5: Unavailable Configmap
+        Pods Scheduled & Container Creation Error
+        Check ConfigMap name in manifest, create ConfigMap
+
+    option6: Unavailable Secret
+        Pods Scheduled & Container Creation Error
+        Check Secret name in manifest, create Secret
+
+    option7: Resource Quota
+        Some Pods are "running", some are not showing in get pods list
+        kubectl get deploy and watch "READY"
+        kubectl describe rs <ReplicaSet name> (OR) kubectl get events --sort-by=.metadata.creationTimestamp
+        Check ResourceQuota in the namespace, adjust resource requests/limits
+
+    option8: Image Pull Back Off
+        Pods Scheduled & Container Creation Error
+        Check image name in manifest, verify image exists in registry
+
+    option9: CrashLoopBackOff-OutofMemory
+        Pods Scheduled & Container Runtime Error
+        kubectl describe pod <pod-name>
+        Check "Events" for OOMKilled
+        Adjust resource requests/limits in manifest
+
+    option10: CrashLoopBackOff-Healthcheck
+        Pods Scheduled & Container Runtime Error
+        kubectl describe pod <pod-name>
+        Check "Events" for liveness/readiness probe failures
+        Adjust health check configuration in manifest
+
+    option11: CrashLoopBackOff-Init
+        Pods Scheduled & Container Runtime Error
+        kubectl describe pod <pod-name>
+        Check "Events" for init container failures
+        Fix init container configuration in manifest
+
+    option12: CrashLoopBackOff-Runtime
+        Pods Scheduled & Container Runtime Error
+        kubectl logs <pod-name>
+        Check application logs for runtime errors -> kubectl logs -f <pod name>
+        Fix application issues
+
+    option13: Runtime Error-Service
+        Pods Scheduled & Container Runtime Error
+        kubectl get svc
+        Verify service configuration, endpoints
+        Fix service configuration in manifest
+
+******** Troubleshooting Kubernetes Pods - End **********
+
+alias k=kubectl
+k get all
+k get all -A
+
+k describe
+
+k get pods
+k get pods -A
+k run nginx --image=nginx
+k get pods -w
+k logs webapp
+
+# To run network related commands - busybox container (minimal)
+kubectl run busybox -it --image=busybox:1.28 --rm -- sh
+
+# To run network related commands - netshoot container (Full)
+kubectl run debug -it --image=nicolaka/netshoot --rm -- bash
+
+kubectl get pod  -o yaml > pod-definition.yaml
+
+kubectl edit pod 
+
+# The kubectl explain command is used to access documentation and schema information for Kubernetes resources
+kubectl explain deployment | head -n3
+
+DNS
+<Service Name>.<Namespace>.svc.cluster.local
+db-service.dev.svc.cluster.local
+
+
+kubectl run nginx --image=nginx --dry-run=client -o yaml
+
+kubectl scale deployment nginx --replicas=4
+
+kubectl create deployment nginx --image=nginx--dry-run=client -o yaml > nginx-deployment.yaml
+
+# Service
+kubectl expose pod redis --port=6379 --name redis-service --dry-run=client -o yaml
+
+kubectl api-resources
+kubectl explain pods
+
+# Add Label
+kubectl run redis -l tier=db --image=redis:alpine
+kubectl label pod nginx-pod-1 env=production
+kubectl label pods --all env=test # All Pods in the default namespace 
+
+# Remove Label
+kubectl label pod nginx-pod-1 env-
+
+# Show Label
+kubectl get pods --show-labels
+
+# Match Label
+kubectl delete deployment,services -l 'environment in (dev,uat)'
+
+
+# Config
+kubectl config get-clusters
+kubectl config delete-cluster <cluster-name>
+
+# KodeKloud
+Service Account
+kubectl get serviceaccount
+or
+kubectl get sa 
+
+
+Default Service Account name "default"
+# Create Service Account
+kubectl create serviceaccount dashboard-sa 
+
+# ResourceQuota vs LimitRange in Kubernetes
+LimitRange controls how much a single Pod / container can request or consume (and sets defaults).
+LimitRange → guardrails per Pod/container
+
+ResourceQuota limits how much a namespace can use.
+ResourceQuota → budget per Namespace
+
+kubectl get events -n quota-lab --sort-by=.lastTimestamp
+
+
+
+Generate an access token for the dashboard-sa ServiceAccount, copy the generated token, and paste it into the token field of the dashboard UI.
+After entering the token, click the "Load Dashboard" button to access the dashboard.
+
+Command to generate the token for dashboard sa:
+kubectl create token dashboard-sa
+
+Monitoring:
+    Metric Server
+    Prometheus
+    Elastic Stack
+    Datadog
+    Dynatrace
+
+    Kubelet -> using cAdvisor -> to send metrics to 'Metric Server'
+    $ minikube addons enable metrics-server 
+    $ kubectl top node
+    $ kubectl top pod
+    $ kubectl top pod --sort-by='memory' 
+    $ kubectl top pod --sort-by='memory' --no-headers
+
+POD Design:
+    # Labels 
+    $ kubectl get pods -l app=App1 (OR) kubectl get pods --selector app=App1
+    $ k get pod -l env=prod,bu=finance,tier=frontend
+
+    # Selectors
+    # ReplicaSet -> spec: selector: matchLabels: app:App1
+     
+    # Deployment Strategies
+        1) Rolling Update (DEFAULT)
+        2) Recreate
+        3) Blue/Green (Both versions running at the same time, Can be implemented using 'Service' selector label 'app:v1','app:v2')
+        4) Canary
+    $ kubectl rollout commands
+
+
+
+
+*******************
+
+Kubernetes Storage
+
+Storage Flow
+    Pod  →  PVC  →  PV  →  Actual Storage
+                ↑
+        StorageClass (how to create PV)
+
+Dynamic Provisioning Flow
+    PVC created
+    ↓
+    StorageClass identified
+    ↓
+    Provisioner called
+    ↓
+    PV created automatically
+    ↓
+    PVC bound to PV
+    ↓
+    Pod mounts PVC
+ConfigMap & Secret
+    Both can be volume mount without PV/PVC
+
+
+kubectl run nginx -it --image=nginx --restart=Never --rm -- sh -c "ls"
