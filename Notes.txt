@@ -1,0 +1,615 @@
+docker build -t app .
+
+docker run app
+
+docker image list | grep app
+
+24026825952
+
+
+
+https://www.youtube.com/watch?v=7eH7vfT0axA
+
+https://terraform.job4u.io/vi/public-eks.html
+
+Narpavi
+
+1174155000157004 - KVBL
+
+Kodaikanal
+https://www.youtube.com/watch?v=9IMZKP2rPKg
+
+
+
+Microservice
+
+
+https://www.youtube.com/@breakingvlogs1/videos (Celebereties)
+https://www.youtube.com/@RaghavsValueInvesting/videos (Raghav's Value Investing)
+https://www.youtube.com/watch?v=ui_ovvue_MM (Poes)
+https://www.youtube.com/watch?v=i2tYr6_G2fI (Dhanush)
+https://www.youtube.com/watch?v=X6jQAu0-Ty0 (hills)
+
+BlueDart Waybill No: 32755944185
+
+https://www.youtube.com/@Way2gotamil/videos
+
+
+https://www.howtoforge.com/what-is-the-passrole-permission-in-aws-and-how-to-use-it/
+https://www.reddit.com/r/aws/comments/jyf4c4/difference_between_iam_passrole_vs_assumerole/
+https://demacia.medium.com/difference-between-iam-passrole-and-iam-assumerole-en-id-3cb1ffd71a36
+https://www.youtube.com/watch?v=h7Z2l_9Sq8Y
+
+
+https://medium.com/ecs-digital/terraform-refresh-is-deprecated-fd3418552da2
+
+https://www.youtube.com/watch?v=C_YZXpXwtbg
+https://www.youtube.com/watch?v=DTIBr9xcfdE
+https://aws.amazon.com/blogs/containers/using-azure-active-directory-to-authenticate-to-amazon-eks/
+https://www.youtube.com/watch?v=sIkRK33AY50
+https://github.com/iam-veeramalla/terraform-zero-to-hero
+https://spacelift.io/blog/how-to-destroy-terraform-resources
+https://www.youtube.com/watch?v=SPcwo0Gq9T8
+
+https://www.youtube.com/watch?v=-tLq7E7h0j4 (House)
+https://www.youtube.com/watch?v=umvi8ppisRo (House Chennai Medavakkam - English)
+https://www.youtube.com/watch?v=OwyZeNXVwt8 (House Chennai Medavakkam - Tamil)
+https://www.youtube.com/watch?v=z7wol6t4jW0 (House - Nungambakkam)
+https://www.youtube.com/watch?v=hltZ6AyXJc4
+https://www.youtube.com/watch?v=E8t8Ux3GaP0 (Kerala)
+
+
+https://www.youtube.com/watch?v=3gE8tiCyf-I (Amazon Office)
+
+
+Istio
+https://www.youtube.com/watch?v=m0GjtrCVSdI
+https://academy.tetrate.io/courses/istio-fundamentals
+https://www.youtube.com/@OneClickLabs
+https://www.youtube.com/watch?v=Wn__q-txnEk&list=PLI4xy7phW54nbfjf7ZMnlEx1O5cHneigh (Series)
+
+AWS & Kubernetes
+https://www.youtube.com/@techwithsoleyman
+
+Stocks:
+https://www.youtube.com/watch?v=dnKYrU59bgk
+https://www.youtube.com/watch?v=KiWwBwZW-14 (Multibagger)
+https://www.youtube.com/@TrendFollowingwithManoj
+https://www.youtube.com/@remoterish
+https://www.youtube.com/watch?v=8YgL1rpzJIA
+
+PAN:
+https://www.youtube.com/@leotech2.0/videos
+
+Nativity Certificate:
+https://www.youtube.com/watch?v=pMWZDMtW5Uk
+https://www.youtube.com/watch?v=bP55Hjz-riM (Birth)
+
+	
++2
+https://www.youtube.com/watch?v=ZEFDK7A_-Tk
+
+Guna Cave
+https://www.youtube.com/watch?v=HyCkcktRCCY	
+	
+VIT
+https://www.youtube.com/@kasthurisudampatil/videos
+
+SRM
+https://www.youtube.com/watch?v=a4xBwvpLpSs
+
+Python
+https://www.youtube.com/watch?v=sCa2zHHASeg&list=PLWbtDrDnmTHBdEnUKuLNdH2-zKSDD8OA4&index=1
+https://www.youtube.com/watch?v=cGbytJvqyI8
+
+MF SIP Story
+https://www.youtube.com/watch?v=qCf_w1XKDms
+
+
+Data Structure 
+https://www.youtube.com/watch?v=can_5EOB7K8 	
+https://www.youtube.com/@codeio
+
+Google Office
+https://www.youtube.com/watch?v=rAejJBmo55Y
+
+
+Saveetha
+https://www.youtube.com/watch?v=nymWmzDahNQ
+https://www.youtube.com/watch?v=6wnCcNGtT8c
+https://www.linkedin.com/in/pranav-aj-730123257/?originalSubdomain=in
+https://github.com/Pranav-AJ
+https://www.youtube.com/watch?v=g1M-zIDb_fA (SIMATS Old building)
+https://github.com/Paul-Andrew-15?tab=repositories (Github)
+https://www.youtube.com/watch?v=UGrmx-abI7U (News)
+
+Indian Billionaire
+https://www.youtube.com/watch?v=g7bcVsLXQYc
+
+Git & Github
+https://www.youtube.com/watch?v=hTYsf6bdSJ8
+https://www.youtube.com/watch?v=WzO6VynQ7UM
+
+Saveetha University
+https://www.youtube.com/watch?v=_wnM9Oy75s4
+
+IoT
+https://www.youtube.com/watch?v=idf-gGXvIu4
+https://www.youtube.com/watch?v=MPXTPOeupBM&list=PL3uLubnzL2TmHSvzSeOvmXxmYuCrtNiTY&index=1
+https://www.youtube.com/watch?v=1gVB8VKfqxE
+https://www.youtube.com/watch?v=U-Ax2FmAfug&list=PLRNBgzSj3e-a7yQupawpKdkTXcVT03-5T (Tamil - Senthil GAVS)
+https://www.youtube.com/watch?v=otam14vUyRk
+https://youtu.be/RxCx31hxskU
+
+
+C Programming
+https://www.youtube.com/watch?v=5klco_okkfU (Tamil)
+
+
+AI
+https://www.youtube.com/watch?v=zLJ36weguMY (Kids)
+
+
+
+St Joseph
+https://www.youtube.com/@stjosepscollegeofengineering/videos
+https://www.cdaceducation.in/courses-python.html
+
+https://www.youtube.com/watch?v=I8uNQ0Pro04 (Breakdown Movie)
+
+
+Solar Panel
+https://www.youtube.com/watch?v=jrusKUsO_X4
+
+Ragi Halwa
+https://www.youtube.com/watch?v=sfaQM1Ledi4
+
+
+Laptop
+https://www.lenovo.com/in/en/p/laptops/thinkpad/thinkpade/thinkpad-e16-(16-inch-intel)/21jns03q00
+
+Vijay house
+https://www.youtube.com/shorts/01ulVL6uMDI
+Explore Chennai - https://www.youtube.com/watch?v=tOykmQSihdY
+
+Nayagan Movie
+https://www.youtube.com/watch?v=OWzCHy1NVgQ
+
+Amazon Office
+https://www.youtube.com/watch?v=UzqrpL9Im8M
+
+Entertainment
+https://www.youtube.com/watch?v=0LvZsmpplzI
+https://www.youtube.com/@JohnsonProductionGroup/videos (English Movies)
+https://www.youtube.com/watch?v=ZjCJBU_Dbyo
+https://www.youtube.com/watch?v=A2axEL_esNY (Ajith Son)
+https://www.youtube.com/watch?v=OJ2A1bj7YEc (Hour Candle Hariram - Stock Market Trading)
+
+https://www.youtube.com/watch?v=scLPGFXp6EU (Best Mutual Funds to Invest in 2025! - ValueResearch)
+
+EKS Karpenter - https://www.youtube.com/watch?v=INGAmV8SRu0
+https://www.youtube.com/watch?v=nQlV7hEU8ro&t=1280s
+
+Mutual Fund Interview
+https://www.youtube.com/watch?v=dtaCmBvoogo
+https://www.youtube.com/@shipmoneylongterminvestor (MF Portfolio)
+https://www.youtube.com/watch?v=uQ4tAWPxh1c (My Mid Cap Mutual Fund Selection Strategy)
+
+https://www.youtube.com/watch?v=cuZm6ZPHPfk (AWS Recent Outage)
+
+Stock Market
+https://finvezto.com/toolkit
+https://www.youtube.com/@FINVEZTO
+https://www.youtube.com/watch?v=cB331gXc310 (SCREENER)
+https://www.youtube.com/watch?v=WCn5cTr3Suw (How to Pick and Sell Multi-Bagger Stocks)
+https://www.youtube.com/watch?v=BMUBuU_DTQw&list=PLGij_a8WO6_pLjbmvsb9Hy_NmS3-d9PzE (Fundamental Analysis Tamil)
+https://www.youtube.com/@vishal-wealth-view (ETF Portfolio)
+
+Metro
+https://www.youtube.com/watch?v=YvMQMDEckG8
+https://www.youtube.com/watch?v=R9QImfNn4R8
+
+House Design
+https://www.youtube.com/watch?v=kHmNT9sRT1M
+https://www.youtube.com/watch?v=I83YxZ8fZNs
+https://www.youtube.com/watch?v=YcIzjBrbRqg
+https://www.youtube.com/@Homeseasonedwithlove (Home Works)
+https://www.youtube.com/@VennilaVeedusangeetha (Home Works)
+https://www.youtube.com/watch?v=cveUBoU0D10 (Home Works)
+https://www.youtube.com/watch?v=J8HJSEq4MvQ (Kavin Real Estate)
+https://www.youtube.com/watch?v=0Vhc3VjjW6I (Kerala Ajmi)
+https://www.youtube.com/watch?v=RGdjaugPCPA (Kerala Ajmi)
+https://www.youtube.com/watch?v=CZIp9v0ctxY (Bharathiraja house)
+https://www.youtube.com/watch?v=n8UZhvlgl-Y (Amazon Office Bangalore)
+
+https://www.youtube.com/watch?v=stxfwCrY7wY - Chennai Airport
+Shyam metalics
+himatsingka share
+ ₹10000.00 was added to your Zerodha account from bank account (*1939) via Net Banking on 6 Apr 2025. Ref: 8013178070354062.
+
+
+https://www.udemy.com/course/diploma-in-aws-cloud-fundamentals-from-zero-to-practitioner/?couponCode=KEEPLEARNING
+
+Wall - Dr Fixit Sure Seal
+https://www.youtube.com/watch?v=r1b8FyWnC74
+https://www.youtube.com/watch?v=z_eLeiA1nks (Breakdown)
+Tooth: https://www.youtube.com/watch?v=hH5AX4XiEKs
+Chennai Airport: https://www.youtube.com/watch?v=stxfwCrY7wY
+
+AWS AI Practitioner Exam:
+https://www.youtube.com/@cloud-thala
+https://docs.aws.amazon.com/prescriptive-guidance/latest/patterns/using-amazon-bedrock-agents-to-automate-creation-of-access-entry-controls-in-amazon-eks.html?did=pg_card&trk=pg_card (AWS Bedrock EKS)
+https://github.com/aws-samples/bedrock-agents-for-eks (AWS Bedrock EKS)
+https://www.youtube.com/watch?v=6O9DqCrInvw (Amazon Bedrock Agents Tutorial - Architecture and Orchestration 	)
+https://www.youtube.com/watch?v=KFibP7KnDVM (Chat with your PDF - Gen AI App - With Amazon Bedrock, RAG, S3, Langchain and Streamlit [Hands-On])
+https://www.youtube.com/watch?v=z7pLYqe4NH4 (Bedrock and Python Basic)
+https://aws.amazon.com/blogs/containers/build-a-multi-tenant-chatbot-with-rag-using-amazon-bedrock-and-amazon-eks/ (RAG)
+https://www.youtube.com/watch?v=qYviRq4SAig (Implementing RAGs using Amazon BedRock)
+https://opstree.com/blog/2024/12/24/end-to-end-rag-solution-with-aws-bedrock-and-langchai/ (End-to-End RAG Solution with AWS Bedrock and LangChain)
+https://www.youtube.com/watch?v=r6AeD-CH1Uw (https://www.youtube.com/watch?v=r6AeD-CH1Uw)
+https://www.youtube.com/watch?v=6O9DqCrInvw&t=789s (Amazon Bedrock Agents Tutorial)
+https://www.youtube.com/watch?v=ubArMesOyxo  (What is Amazon Sagemaker | Deploy ML Models on AWS Sagemaker | AWS Sagemaker Tutorial | Intellipaat)
+https://www.youtube.com/watch?v=2WOa4_3Bgtw&list=PLZoTAELRMXVP5zpBfH7pab4aB1LbmCM1z&index=1 (Starting Generative AI On Cloud New Series- AWS)
+https://www.youtube.com/watch?v=bf7pCxj6mEg (Different Ways Of Creating Python Environment)
+https://www.youtube.com/watch?v=eSLT-WvTrj0 (Deep Learning - Tamil)
+https://www.youtube.com/watch?v=Q6qh5Vji1Lg (How To Create An AI AGENT for AWS PLATFORM)
+https://www.youtube.com/watch?v=lkMT8tyZ1-Y (Lets Get Agentic - Create An Amazon Bedrock Agent to Query Amazon Athena on AWS)
+https://www.youtube.com/@rajibdeb4059/playlists (AI, AWS Bedrock Agent)
+https://dev.to/aws-builders/building-bedrock-agents-for-aws-account-metadata-and-cost-analysis-28c0 (Building Bedrock Agents for AWS Account)
+https://github.com/markymarkus/bedrock-agent-accounts/tree/master (Building Bedrock Agents for AWS Account)
+https://aws.amazon.com/blogs/machine-learning/using-amazon-bedrock-agents-to-interactively-generate-infrastructure-as-code/ (Using Amazon Bedrock Agents to interactively generate infrastructure as code)
+https://kapil-raina.medium.com/aws-bedrock-exploring-agents-knowledge-base-rag-bd2856c80d2f (AWS Bedrock — Exploring Agents, Knowledge-Base & RAG)
+https://aws.amazon.com/blogs/machine-learning/introducing-multi-turn-conversation-with-an-agent-node-for-amazon-bedrock-flows-preview/ (Introducing multi-turn conversation with an agent node for Amazon Bedrock Flows (preview))
+https://github.com/aws-samples/bedrock-agents-for-eks (Bedrock Agents For EKS)
+https://www.youtube.com/watch?v=MKKGhiMTmJ4 (Building Custom Amazon Bedrock Agents for Automation from Scratch - Trevor Sullivan)
+https://www.udemy.com/course/building-multi-agentic-ai-workflows-on-aws-bedrock/?referralCode=50DC8011884C42FC8377&couponCode=KEEPLEARNING (Building Multi-Agentic AI Workflows on AWS Bedrock - UDEMY)
+https://aws.amazon.com/blogs/infrastructure-and-automation/build-an-automated-deployment-of-generative-ai-with-agent-lifecycle-changes-using-terraform/ (Build an automated deployment of generative AI with agent lifecycle changes using Terraform)
+(https://github.com/aws-samples/intelligent-rag-bedrockagent-iac)
+https://catalog.workshops.aws/agents-for-amazon-bedrock/en-US (Amazon Bedrock Agents Workshop)
+https://catalog.workshops.aws/amazon-bedrock/en-US (Amazon Bedrock Workshop)
+https://www.youtube.com/watch?v=Ld2oTLY47sA (AI Engineering with AWS SageMaker: Crash Course for Beginners!)
+https://www.youtube.com/watch?v=q5obnSh1zH8&list=PLZ8LpvgeJKcjVJwDQELeXBIyrMhaYr1mb&index=1 (SageMaker Series - Advanced)
+https://www.youtube.com/watch?v=uQc8Itd4UTs&list=PLhr1KZpdzukcOr_6j_zmSrvYnLUtgqsZz&index=1 (SageMaker Series - From AWS 5years ago)
+https://www.youtube.com/watch?v=LkR3GNDB0HI&list=PLZoTAELRMXVONh5mHrXowH6-dgyWoC_Ew (SageMaker Series - Krish Naik)
+https://www.youtube.com/watch?v=_FVYDU9-ftI (STEP BY STEP TO MACHINE LEARNING WITH SAGEMAKER (getting started with Amazon Sagemaker))
+https://www.youtube.com/watch?v=RHL78Q_qiuQ (SageMaker Friday episode 1 - How to build, train and deploy and a machine learning model easily)
+https://www.youtube.com/watch?v=jyzcTRWeogU (AWS Bedrock Tutorial - Knowledge Base | Building a RAG System with S3 and Python)
+https://www.youtube.com/watch?v=6WUlxm-Rffs (AWS Bedrock Multi-Agent Blueprint Project Walkthrough - Advanced)
+https://blog.avangards.io/developing-a-generic-streamlit-ui-to-test-amazon-bedrock-agents 
+https://www.youtube.com/watch?v=Ld2oTLY47sA (AI Engineering with AWS SageMaker: Crash Course for Beginners! - Patrik Szepesi)
+https://github.com/awslabs/amazon-bedrock-agent-samples?tab=readme-ov-file (Amazon Bedrock Agent Samples)
+https://www.youtube.com/watch?v=MKKGhiMTmJ4 (Building Custom Amazon Bedrock Agents for Automation from Scratch)
+https://www.youtube.com/watch?v=RFygzPr7qfw (Automate the insurance claim lifecycle using Agents and Knowledge base for Amazon)
+https://dev.to/girishmukim/generative-ai-assistant-for-loyalty-reward-system-using-amazon-bedrock-knowledge-bases-agent-1670 (AI-Powered Loyalty Rewards Assistant: Amazon Bedrock Agent in Action)
+https://www.youtube.com/watch?v=ulk2UwK8rpE (Building an Audio ChatBot with AWS #Bedrock #LLM, Transcribe, and Polly: Complete Workflow Tutorial - ARABIC)
+https://www.youtube.com/watch?v=MKKGhiMTmJ4 (Building Custom Amazon Bedrock Agents for Automation from Scratch - Trevor Sullivan) ***
+https://www.youtube.com/watch?v=i8stkFG8drs (Build AI Agent with function calling - EASY in AWS Bedrock)
+https://www.youtube.com/watch?v=6vxdCjQc5EA (AWS Bedrock Tutorial: chat with your files in 10 min with AWS Bedrock, Streamlit, and knowledge base)
+https://www.youtube.com/watch?v=KIF0-V8WbdE&list=PL7Jj8Ba9Yr6BLf2lS4Nfa2jdl0KpdvqYC&index=1 (AWS Certified AI Practitioner (AIF-C01) Series)
+https://catalog.workshops.aws/building-agentic-workflows/en-US (Building Agentic Workflows on AWS)
+https://www.youtube.com/watch?v=tKEu-K2YTTc (Exploring AWS Bedrock Agents: A Beginner's Guide to Intelligent Web Scraping)
+https://www.youtube.com/watch?v=K_mNRugJZmE (How do I give cross-account access to the Amazon Bedrock API?)
+https://www.youtube.com/watch?v=2NwUfnKhsuU&list=PLWuFHho1zKhUJpe9WfSyvrrQrzqDErbmv&index=1 (Python Pandas Series)
+https://blog.avangards.io/building-a-basic-forex-rate-assistant-using-agents-for-amazon-bedrock (Building a Basic Forex Rate Assistant Using Agents for Amazon Bedrock) - PART 1
+https://blog.avangards.io/how-to-manage-an-amazon-bedrock-agent-using-terraform (How To Manage an Amazon Bedrock Agent Using Terraform) - PART 2
+https://github.com/acwwat/terraform-amazon-bedrock-agent-example (How To Manage an Amazon Bedrock Agent Using Terraform) - PART 3
+https://blog.avangards.io/developing-a-generic-streamlit-ui-to-test-amazon-bedrock-agents (Developing a Generic Streamlit UI to Test Amazon Bedrock Agents)
+https://aws.amazon.com/blogs/machine-learning/indian-language-rag-with-cohere-multilingual-embeddings-and-anthropic-claude-3-on-amazon-bedrock/ (Indian language RAG with Cohere multilingual embeddings and Anthropic Claude 3 on Amazon Bedrock)
+https://aws.amazon.com/blogs/publicsector/how-to-build-a-multilingual-document-summarization-application-using-amazon-bedrock/ (How to build a multilingual document summarization application using Amazon Bedrock)
+https://aws.amazon.com/blogs/machine-learning/elevate-rag-for-numerical-analysis-using-amazon-bedrock-knowledge-bases/ (Streamlit on AWS)
+https://www.youtube.com/watch?v=6PvbVT4_EvU (What is a Neural Network?)
+https://www.youtube.com/watch?v=am2jlfRVw30&list=PLfmMgg_VrrlDPOqD7drF2qemHejPzk__c&index=1 (Build Serverless GenAI Contact Forms for Static Websites With AWS Lambda, API Gateway, Bedrock & SES - Series ONGOING)
+https://www.youtube.com/watch?v=zv1RPZBAv9k (How to Build A Complete ML Architecture With SageMaker + API Gateway + Lambda | PART1)
+https://www.youtube.com/watch?v=jDFpEnJeSVg (How to Use Multimodal RAG to Extract Text, Images, & Tables (with Demos) => AWS)
+https://www.youtube.com/watch?v=asNvvPJdc7s (How to Use Multimodal RAG to Extract Text, Images, & Tables (with Demos) => AWS)
+https://github.com/debnsuma/fcc-ai-engineering-aws/tree/main?tab=readme-ov-file (Detailed MultiModal RAG)
+https://www.youtube.com/watch?v=LdgVEF4Uauk (Build a RAG Web App with Bedrock | AWS x Bedrock | Step-by-Step Tutorial)
+https://www.youtube.com/watch?v=GhzUzhBTo38 (What is RAG?  Simple way of Explain)
+https://aws.amazon.com/blogs/machine-learning/streamline-custom-model-creation-and-deployment-for-amazon-bedrock-with-provisioned-throughput-using-terraform/ (Streamline custom model creation and deployment for Amazon Bedrock with Provisioned Throughput using Terraform)
+https://catalog.workshops.aws/building-with-amazon-bedrock/en-US (Bedrock Workshop)
+https://www.youtube.com/watch?v=dhqD20-Yb_s (Build an AI Agent with AWS Bedrock and Lambda Step by Step | Agentic AI)
+https://www.youtube.com/watch?v=agJ5o4wEgJY (Bedrock - Build your AI Agent from scratch!! )
+https://www.youtube.com/watch?v=Slk67_F5pQk (Generative AI with Mike Chambers)
+https://www.youtube.com/watch?v=xhB-dmKmzRk (Step By Step Process In EDA And Feature Engineering In Data Science Projects)
+https://www.youtube.com/watch?v=Le-A72NjaWs&t=12s (End To End Machine Learning Project Implementation Using AWS Sagemaker)
+https://www.youtube.com/watch?v=E4l91XKQSgw (How to Build a Local AI Agent With Python (Ollama, LangChain & RAG))
+https://www.youtube.com/watch?v=opM2ChQuK6U&list=PLMn73l82HB5AUE_Ez0UZsF9Cr-1B_rjco&index=10 (Transformer Tamil Playlist)
+https://www.youtube.com/watch?v=OkkLSZNGf2w (Workshop: Building and Deploying a Production-Grade MCP Server on AWS)
+http://youtube.com/watch?v=4esqnMlMo8I&t=44s (AWS Project: Build an AI-Powered Chatbot with Amazon Lex, Bedrock, S3 and RAG)
+https://www.youtube.com/@TinyTechnicalTutorials
+https://www.youtube.com/@machinewithbrain/featured (AI - Tamil)
+https://www.youtube.com/watch?v=ozKjpWZ-Z6w&list=PL5dTjWUk_cPZxyZuZdl8S0g4tbh-GL2Ro (LLM Concepts Series)
+https://aws.plainenglish.io/building-an-intelligent-aws-cloud-engineer-agent-with-strands-agents-sdk-13d5a003c8be (Building an Intelligent AWS Cloud Engineer Agent with Strands Agents SDK)
+https://www.youtube.com/@forgemind_ai/videos
+https://www.youtube.com/@FuturMinds/videos
+https://www.youtube.com/@dswithbappy (AI/ML Videos - Udemy Instructor DS with Bappy)
+https://www.youtube.com/watch?v=dakP3Jh7PXA (n8n Installation - Tamil)
+https://www.youtube.com/watch?v=gFcAfU3V1Zo (OpenAI Agents SDK Tutorial (FULL SERIES)
+https://www.youtube.com/watch?v=MI796yMnOF0&list=PLJq-63ZRPdBu38EjXRXzyPat3sYMHbIWU&index=12 (Agentic AI related videos with good architecture diagrams)
+https://www.youtube.com/watch?v=9W_U1y7RYuE&list=PLCRMIe5FDPse83estfxg_d6bF5ALh77Yq (AI related videos with good architecture diagrams)
+https://www.youtube.com/watch?v=7-TEVtf3gnc (n8n Phone call  - Retell AI Voice provider)
+https://www.youtube.com/watch?v=hINJdsduFZM (Create Your Own AI Voice Assistant/Agent with n8n & VAPI in 10 Mins | No-Code Tutorial for Beginners)
+https://www.youtube.com/watch?v=Lqc-j30f29s (This n8n Voice AI Agent CALLS Your Customers (No Humans Needed!))
+https://www.youtube.com/watch?v=9IO3cPPU98w (n8n basic tutorial - Tamil)
+https://www.youtube.com/watch?v=qnv7aoJFuSw (n8n x Vapi AI Receptionist Agent - Full Tutorial Step by Step)
+https://www.youtube.com/watch?v=yAiCXyGLZ2c (I Scraped Every N8N Template For You (FREE Database))
+https://www.youtube.com/watch?v=rq2u_d-OY4I (n8n Ollama - Tamil)
+https://www.youtube.com/watch?v=4o0AJYBEiBo (Only 1% of n8n Builders Know This Node Exists (LangChain Code Node))
+https://www.youtube.com/watch?v=LSk5KaEGVk4 (Agentic AI Hands-On in Python: MCP, CrewAI and OpenAI Agents SDK (by Jon Krohn and Ed Donner))
+https://www.youtube.com/watch?v=IU9xGS1l7g4 (Vapi Google Calendar Booking with MCP and N8N - New 2025 update)
+https://www.youtube.com/watch?v=J1QaYh-TgIE (Build & Break AI Agents - College Student Seminar)
+https://www.youtube.com/watch?v=maZ_fF57yhE (The Only RAG Video You Need (n8n, 100% local))
+https://www.youtube.com/watch?v=o5H5OlHr_yM (How to Build a n8n Voice AI Agent That COLD CALLS Leads for You)
+https://www.youtube.com/watch?v=2fIXpHqRuBM (This Voice AI Calls Your Leads Instantly – Watch It in Action!)
+https://www.youtube.com/watch?v=bCE2OqeqCPY (How I’d Teach a 10-Year Old to Build AI Agents (n8n, No Code))
+https://www.youtube.com/watch?v=75lwkzFxyLs (n8n RAG Masterclass - Build AI Agents + Systems that Actually Work)
+https://www.youtube.com/watch?v=ZG3jcXPis_g (How To Build The Perfect AI Knowledge Base (Self-Learning RAG AI Agent With Supabase + n8n))
+https://www.youtube.com/watch?v=jhRet3hK_og (I Built An AI Voice Receptionist For Dentists (FULL TUTORIAL))
+https://www.youtube.com/watch?v=tf6L9gzShf0 (How to Use Free n8n Templates Without Breaking Everything – Beginner Tutorial)
+https://www.youtube.com/watch?v=YRQj4o4Mdxc (n8n master class)
+https://www.youtube.com/watch?v=6MLu3fbNsdY (I Built an AI Call Center in 60 minutes with No-Code (n8n, VA{I))
+https://www.youtube.com/watch?v=p0DusrDjfjA (Part 1: BuildYour First Retell Voice Al Agent That Sells Cars) - https://sgai.notion.site/Zero-to-Production-Build-Your-First-Retell-Voice-Al-Agent-That-Sells-Cars-21f374afc2e680a79031f762f9f3d7c0
+https://www.youtube.com/watch?v=Ey18PDiaAYI (Build & Sell n8n AI Agents (8+ Hour Course, No Code)) Nate Herk ***
+https://www.youtube.com/watch?v=SsTIuNGquJ0 (IOT Arduino AI Agent using MCP (Model Context Protocol) and AWS Strands)
+https://www.youtube.com/watch?v=GDEtRssnpx4 (Kubernetes MCP - Strands Agents SDK from AWS)
+https://vijay.eu/posts/building-my-first-mcp-server/
+https://www.youtube.com/watch?v=bIjzZz7kbDQ (Kubernetes MCP - using VSCode)
+https://www.youtube.com/watch?v=F77A7YNOwAU (AWS re:Post Live | Building AI Agents on Amazon Bedrock)
+https://www.youtube.com/watch?v=5WQgLboa_I8 (2025 Global AI Hackathon Presentations)
+https://www.youtube.com/watch?v=eE6yvtKLwvk (STOP Taking Random AI Courses - Read These Books Instead)
+https://drive.google.com/drive/folders/1jIJMyBOeWiVxLCUUtLvEFEFCnWxbh6cs (AI EBooks)
+https://www.youtube.com/watch?v=LLAi8emBOrg (How to Start Learning AI in 2025)
+https://www.youtube.com/watch?v=Xpr8D6LeAtw&list=PLPTV0NXA_ZSgsLAr8YCgCwhPIJNNtexWu&index=1 (Building LLMs from scratch: Series)
+https://www.youtube.com/watch?v=fVkY8trbO8Q (How to Create Ai Short Flim in Tamil | veo 3 tutorial tamil)
+https://www.youtube.com/watch?v=U5wStfgp4do (GPT-5 Full Review & 10 Mind-Blowing Use Cases)
+https://www.youtube.com/watch?v=wzIQDPFQx30 (Building your first production-ready AI agent with Amazon Bedrock AgentCore | AWS Show & Tell)
+https://www.youtube.com/watch?v=dm1upVBfOYg (All about Strands Agents - Vivek Raja PS - AWS Hero - Madurai)
+https://github.com/Vivek0712/amazon-bedrock-agentcore-samples
+https://www.youtube.com/watch?v=XM0Q4eQxpAg (Papa Learns MCP | Easiest Explanation | Standardization of using Tools for Agentic Apps) *
+https://www.youtube.com/watch?v=V_xro1bcAuA&t=2598s (PyTorch for Deep Learning & Machine Learning – Full Course)
+https://www.youtube.com/watch?v=-Q0QhcYi-c4 (Easiest VAPI MCP Tutorial (Make Google Calendar Appointments))
+https://www.youtube.com/watch?v=9ryQ4Nb32zk&list=PLMZM1DAlf0Lrc43ZtUXAwYu9DhnqxzRKZ (AWS Strands Series)
+https://www.youtube.com/watch?v=cTBGIKAckKE (Amazon Bedrock AgentCore Tutorial | Build, Deploy, Operate AI Agents using AgentCore)
+https://www.youtube.com/watch?v=Q-tYIAuv9WI (Deploy Production-Ready Agents in 22 Minutes with AgentCore Runtime)
+https://www.youtube.com/watch?v=Sx3gmMBobPY (Step by Step Amazon Bedrock AgentCore Agents Tutorial)
+https://www.youtube.com/watch?v=9BhMFxJnaGM (Stop Hardcoding Logic – Build an AI Agent with Amazon Bedrock)
+https://www.youtube.com/watch?v=M1OEOmqLz9s (AWS's AI Bet: What re:Invent 2025 Actually Means)
+
+https://www.youtube.com/watch?v=mYa1yGAl7T0 (TCS to Google | From Manual Tester to Machine Learning Engineer )
+
+https://www.youtube.com/watch?v=c_CzCsCnWoU (Kubernetes Tutorial: Deploy Machine Learning Models with Docker and FastAPI)
+SageMaker
+https://www.youtube.com/watch?v=layH1QNAMJ0 (Card Credit Limit Prediction ML Model | Training and Deployment Using Amazon SageMaker | EPISODE #4)
+https://www.youtube.com/watch?v=dzezAjwFy6E&list=PLogTZDPRDj0jKY60-u7TW9Yyti2ZIX5Lu (End to End Machine Learning With AWS SageMaker - Series)
+https://www.youtube.com/watch?v=7dksopxbcqM (End-to-End Machine Learning Project Using AWS SageMaker)
+https://www.youtube.com/watch?v=HtnwFBzV1r4 (How To: Use AWS SageMaker for End-to-End ML — Setup, Training, Deployment, and Bias Detection) https://github.com/learnthetechnologywithbk/sagemaker_end_to_end_ml ( Renisa Pati (Software Engineer at Amazon Web Services (AWS))
+https://www.youtube.com/watch?v=I4j09Oqxvug ( End-to-End ML Project - SageMaker Canvas - No Code)
+https://www.youtube.com/watch?v=WYBcJZHtHLg&list=PL2JzQ-gIFdqSOyTnJ2TP8YhqclcZy7wif (AI Receptionist for Car Rental Businesses | n8n + Retell AI Full Tutorial)
+https://www.youtube.com/watch?v=GZHi5E_B9mc (16-Year-Old Builds Complete AI Receptionist System (Made Me $20K+) - Full Tutorial)
+https://www.youtube.com/watch?v=qnv7aoJFuSw (n8n x Vapi AI Receptionist Agent - Full Tutorial Step by Step) *
+Template is in unofficial gmail
+https://www.youtube.com/@yohita005 (Yohita : Smart AI Automations - Indian Language)
+https://www.youtube.com/watch?v=Op6L62rS5WU (Amazon AgentCore)
+https://www.youtube.com/watch?v=IaNyd9N5DQk
+https://www.youtube.com/watch?v=5YYTL5y8rpw *
+https://github.com/ajitnk-lab/agentcore-security-assessment
+https://www.youtube.com/@Noel-GenAI (Strands Agents, AgentCore Collection)
+https://www.youtube.com/watch?v=1ZS8300o1H4 (Full Walkthrough Demo: Deploying AWS Agent Core with Docker, Strands AI, Mem0, and AWS ECR)
+https://www.youtube.com/watch?v=FA-SCzs3v1k (Getting Started with AWS Bedrock AgentCore - Runtime)
+https://www.youtube.com/watch?v=Fb7nzQ36SnQ (Introduction to Strands Agents)
+https://www.youtube.com/watch?v=fimJXVPcYXk (Amazon Bedrock Agent & AgentCore | Deploy Bedrock Agent to Talk to Your k8s Cluster using MCP Server) **
+https://github.com/SharmaRakeshKumar/bedrock-agent-mcp-k8s-project
+https://www.youtube.com/watch?v=Op6L62rS5WU&list=PLrDJzKfz9AUuq0Rt-I0HyWgCNOYME1f6Y&index=6 (Amazon Bedrock Agent & AgentCore Series)
+https://www.youtube.com/watch?v=Wekjb50hyjU (Manage, Deploy & Troubleshoot AWS EKS K8s Using AWS EKS MCP Server)
+https://www.youtube.com/watch?v=3pC720Wd-Rk (AI VPC Flow Log Analyzer with Amazon Bedrock)
+https://www.youtube.com/watch?v=dAkNUoZ_xtw (Cloud with Raj - AWS Agentic DevOps with the EKS MCP Server)
+https://www.youtube.com/watch?v=nviZRpzRAqE (Build & Deploy Custom AI Agent on AWS Amazon Bedrock AgentCore – Step-by-Step Guide!)
+https://www.youtube.com/watch?v=BR1VCntXJAY (AWS Cloud Control API MCP Server: Natural Language Infrastructure Management on AWS)
+https://www.youtube.com/watch?v=9c9tMUHidVM (Agentic AI vs IaC: The Future of DevOps)
+https://www.youtube.com/watch?v=paqxLLotp3k (Building a Terraform AI agent)
+https://dev.to/aws/ai-agents-from-prototype-to-production-a-free-learning-path-with-strands-agents-481l (Strands - AI Agents from Prototype to Production)
+https://github.com/aws-samples/sample-getting-started-with-strands-agents-course/tree/main
+https://www.youtube.com/watch?v=nO7v5FDd_Qc (MCP vs API)
+https://www.youtube.com/watch?v=fimJXVPcYXk&t=1198s (Amazon Bedrock Agent & AgentCore | Deploy Bedrock Agent to Talk to Your k8s Cluster using MCP Server)
+https://www.classcentral.com/classroom/youtube-how-to-build-ai-agents-with-strands-504283 (How to Build AI Agents with Strands)
+https://blog.avangards.io/5-practical-tips-for-the-terraform-authoring-and-operations-professional-exam (Tips for the Terraform Authoring and Operations Professional Exam)
+https://blog.avangards.io/how-to-manage-an-amazon-bedrock-agent-using-terraform#cm7fq6ox7000009l17v5ta7k3 (How To Manage an Amazon Bedrock Agent Using Terraform)
+https://medium.com/@joudwawad/aws-bedrock-agentcore-deep-dive-6822e4071774 (AWS Bedrock AgentCore Deep Dive)
+https://www.youtube.com/watch?v=mk5LwHppmQQ (8Min Intro: AWS Bedrock AgentCore Prototype to Production)
+
+
+Stramlit
+https://www.youtube.com/watch?v=oynd7Xv2i9Y
+https://www.youtube.com/watch?v=6vxdCjQc5EA
+https://www.youtube.com/watch?v=DflWqmppOAg
+https://www.youtube.com/watch?v=WTfWgYsIspE
+https://www.youtube.com/watch?v=eE7CamOE-PA (Gradio)
+
+https://github.com/gashok13193/DevOps-Docs/tree/main *** (Excellent DevOps Docs)
+
+AWS AI Practitioner Questions
+https://www.youtube.com/watch?v=mfJIsgOq9OI&list=PLMdFrZK3uZdev_uAoHZj-6lO55erQ6zd_&index=7
+
+AI Agents
+https://www.youtube.com/watch?v=fCSvGlhl7sA&list=PL4gu8xQu0_5JrWjrWNMmXNx4zFwRrpqCR&index=13
+
+KYC
+https://www.youtube.com/watch?v=eM5wSHqgZbc (How to Modify Your KYC (Know Your Customer) Online 2024 | Tutorial)
+DSP - https://www.dspim.com/invest/#goto=kyc
+
+https://www.youtube.com/watch?v=Keqvv4jV5Tk (AI LEarning Path)
+
+https://www.youtube.com/watch?v=ZSLJbew4pMM - ETF Zerodha
+https://www.youtube.com/watch?v=j74uVV_LLVw (Small Cap Fund Selection Strategy)
+
+AWS Strands Agent
+https://www.youtube.com/watch?v=nS1arlGhKOI (Strands Agents Framework Introduction)
+https://www.youtube.com/watch?v=rLA_4dgiUU8 (Strands Part 1: Build Your First AI Agent with AWS strands + Bedrock + MCP - Typescript)
+https://www.youtube.com/watch?v=q--VZwTZ3_Q (AWS STRANDS AGENTS | AGENTIC LOOP)
+https://www.youtube.com/watch?v=C8v4hHKT4bo (Agent-to-Agent AI Integration: AWS Security Analysis with AI21 Maestro & Strands Agents)
+https://www.youtube.com/shorts/V7V0_uCE7o4 (AWS Bedrock + Strands Agents SDK)
+
+
+Learning Website:
+https://www.elementsofai.com/
+Sasi Gmail
+Pd@XXXX
+
+
+
+9321938481 - ICICI Direct - Surya
+
+
+
+ChatGPT
+https://chatgpt.com/c/685a1547-958c-800b-b509-ba157fa60566
+
+Zoho 
+https://www.youtube.com/watch?v=AvvNyc_nz5Y
+
+Ultimate [SaaS] Startup Masterclass! (Tamil Roundtable Podcast) - Zoho
+https://www.youtube.com/watch?v=Rw1KRALyCBg
+
+
+He Quit His Job & Built a Mac App That Makes ₹10 Lakhs/Month
+https://www.youtube.com/watch?v=Qf-1yWzrGEI
+https://www.youtube.com/watch?v=yBjCXcbhslM
+
+streamlit run test.py
+MAXPRO Fusion 4.5 HP Peak DC Motor, 15 Level Auto Incline Treadmill for Home Gym
+
+[AWS Developers - Viktoria Semaan & Tiffany Souterre]
+https://github.com/viktoriasemaan/sa-ai-agent
+https://www.youtube.com/watch?v=ASqYh4g4dgA (How Do AI Agents Actually Work?)
+https://www.youtube.com/watch?v=hXRjKi-D_Ew (How To Turn a Drawing Into a Fully Deployed AWS Solution (Using AI Agents))
+https://www.youtube.com/watch?v=_cjuQlc62uc (AI Agents Are Changing AWS Cost Prediction)
+
+https://www.youtube.com/watch?v=1UW8Y4-VM_w (Deep Dive with AWS! Amazon Bedrock – AI Agents S1E1)
+
+
+
+Old Apple Mac: https://www.youtube.com/watch?v=-5zeJyQ31rM
+Lungs: https://www.youtube.com/watch?v=1C4VmP-BUIY
+Kamal House: https://www.youtube.com/watch?v=afBVTxZHXg8
+
+Dr. Pal
+https://www.youtube.com/watch?v=g98QRBd8blg
+
+Adventure
+https://www.youtube.com/watch?v=FyvLLf7foRc
+
+
+KYC:
+https://www.youtube.com/watch?v=eM5wSHqgZbc
+
+https://www.youtube.com/watch?v=lcPcyNAEZgo
+API Protocols Explained: When to Use HTTP, WebSockets, gRPC & More	
+
+Home Office:
+https://www.youtube.com/@peterpandev
+https://www.youtube.com/watch?v=49ThbCQ4OJQ 	 (Standing Desk  India)
+
+Dress Shop:
+https://www.youtube.com/watch?v=KcqievLtWR0
+
+
+Pod Security Standards
+https://www.youtube.com/watch?v=WPZQd29vffc
+
+
+Docker
+https://cloud.theodo.com/en/blog/container-docker-oci
+
+AI
+https://www.youtube.com/@ArchitectureBytes/videos
+https://www.youtube.com/watch?v=q98sro4jLro
+https://www.youtube.com/watch?v=SS9_DusYvus (MLOps)
+https://github.com/aws-samples/bedrock-agents-for-eks
+
+
+
+Bone
+https://www.youtube.com/watch?v=2rAcuXTypnI
+https://www.youtube.com/watch?v=8rUW7xsGYFo
+https://www.youtube.com/watch?v=rJ6cvf_4HqI
+https://www.youtube.com/watch?v=Ooz_sdRjgmM (For faster recovery)
+
+
+1.5L
+
+74+implant => 30K-40K
+
+1)Electrosteel casting
+2)care rating
+3)Prima plastics
+4)Control print
+
+AWS
+https://cybr.com/courses/introduction-to-aws-security/lessons/regions-and-availability-zones-azs/
+Inside a Google data center = https://www.youtube.com/watch?v=XZmGGAbHqa0&t=13s 
+
+
+
+
+
+
+Lumpsum:
+AXIS Midcap - 1000
+
+
+6380736518
+https://insights.dsij.in/screener_details/operationtype/multibaggers
+
+------------------------------
+Kombs:
+Tata Digital Fund - Weekly 1000 - Jan 2025 -> TAMLSIPI-267431 *
+HDFC Mid-Cap Opportunities Fund - Direct Plan - Growth Option - Weekly 1000 - Jan 2025 -> HD000000-217252 *
+Nippon India Small Cap Fund - Weekly 1000 - Jan 2025 -> RMDIRECT-R84734 *
+
+https://gs.im/JIOHTT/e/tfd5T5JMe9D
+
+
+Sasi:
+UTI Nifty Next 50 - Rs1000 - UTDIRECT-A21024 ==> From Jan 2025 *
+Mirae MF - 6th Jan - 1000 - MAEB0682-A01989 *
+Mirae MF - 13th Jan - 1000 - MAEB0694-A01989 *
+Mirae MF - 20th Jan - 1000 - MAEB0709-A01989 *
+Mirae MF - 27th Jan - 1000 - MAEB0961-A01989 *
+
+
+
+ITBEES - 10000(13000) => PBank,ConBees 2000 + PhBees 3000 + SmallMid Health 4000 + S50 500 + M50 500
+RAINBOW - 1000 => PBank 1000
+RAINBOW - 1000 (12-Nov-2024) => ConBees 1000 
+MANKIND - 4000 (18-Dec-2024) => PhBees 1000 + SmallMid Health 1000 + PBank,ConBees 2000
+                             => SmallMid Health (-)2000
+
+
+AK Zerodha Withdrawal
+13/May => 26000
+
+_____ Python Virtual Environment ______
+
+python -m venv venv
+./venv/Scripts/activate => Windows
+./venv/bin/activate     => Mac
+pip install -r .\requirements.txt
+
+
+C:\Users\komba\AppData\Local\Programs\Python\Python313
+
+
+
+
+
+
+https://ak-s3-ai.s3.us-east-1.amazonaws.com/bedrock.zip
+
+
+
+
+Only Profit
+AK Zerodha
+
+Kubernetes Interview Questions 2026
+https://www.youtube.com/watch?v=WRDf3aKH3X0
