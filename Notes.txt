@@ -4,6 +4,8 @@ docker run app
 
 docker image list | grep app
 
+
+
 24026825952
 
 
